@@ -1,0 +1,11 @@
+.input {
+  font-size: 20px;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  transition: all 0.3s;
+  &:focus {
+    background-color: white;
+    box-shadow: 0 0 0 1px black;
+  }
+}
