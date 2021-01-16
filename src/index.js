@@ -1,8 +1,5 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import 'antd/dist/antd.min.css'
-//import 'antd/dist/antd.css'
-//import {Rate} from 'antd'
 import App from './Components/App/App'
 
 
