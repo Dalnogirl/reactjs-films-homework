@@ -1,7 +1,5 @@
-const webpack = require('webpack')
 
 const HtmlWebPackPlugin = require('html-webpack-plugin')
-const path = require('path')
 const htmlPlugin = new HtmlWebPackPlugin({
     template: './src/index.html',
     filename: './index.html'
@@ -13,9 +11,7 @@ module.exports = {
     plugins: [
         htmlPlugin,
     ],
-    optimization: {
-
-    },
+    optimization: {},
     module: {
         rules: [
             {
@@ -25,25 +21,7 @@ module.exports = {
                     loader: 'babel-loader'
                 }
             },
-            {
-                test: /\.s[ac]ss$/i,
-                use: [
-                    'style-loader',
-                    {
-                        loader: 'css-loader', options: {modules: true,}
-                    },
-                    'sass-loader',
-                ],
-            },
-            {
-                test: /\.css$/i,
-                use: [
-                    'style-loader',
-                    {
-                        loader: 'css-loader', options: {modules: true,}
-                    },
-                ],
-            },
+
             {
                 test: /\.(png|jpe?g|gif)$/i,
                 use: [
@@ -53,6 +31,9 @@ module.exports = {
                 ],
             },
         ],
+    },
+    resolve: {
+        extensions: ['.js', '.jsx'],
     },
 
 

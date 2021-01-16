@@ -1,4 +1,4 @@
-const webpack = require('webpack')
+
 const {merge} = require('webpack-merge')
 const base = require('./webpack.base')
 const path = require('path')
@@ -34,6 +34,15 @@ module.exports = merge([base, {
 
                     'sass-loader',
 
+                ],
+            },
+            {
+                test: /\.css$/i,
+                use: [
+                    'style-loader',
+                    {
+                        loader: 'css-loader', options: {modules: true,}
+                    },
                 ],
             },
         ],
