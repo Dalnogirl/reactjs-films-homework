@@ -15,7 +15,7 @@ const MovieDetailsPage = ({posterUrl, movieName, movieTags}) => {
         <header className={styles.header}>
             <h1 className={styles.logo}>FILMS</h1>
             <div className={styles.searchContainer}>
-                <Input type="text" placeholder={'Search something'}/>
+                <Input type="text" placeholder={'Search'}/>
                 <Button text={`Search`}/>
             </div>
         </header>
@@ -23,7 +23,10 @@ const MovieDetailsPage = ({posterUrl, movieName, movieTags}) => {
             <div className={styles.mainInfo}>
                 <p className={styles.movieName}>The Jungle Book</p>
                 <div className={styles.movieTagContainer}>
-                    {tags.map((item, index) => <div key={index} className={styles.movieTag}>{item}</div>)}
+                    {tags.map((item, index) => (
+                        <div key={index}
+                             className={styles.movieTag}>{item}
+                        </div>))}
                 </div>
             </div>
             <div className={styles.controls}>
