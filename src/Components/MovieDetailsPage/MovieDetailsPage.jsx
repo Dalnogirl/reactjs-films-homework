@@ -3,6 +3,8 @@ import React from 'react'
 import styles from './MovieDetailsPage.module.scss'
 import Button from '../utils/Button/Button'
 import Input from '../utils/Input/Input'
+import Rating from '../utils/Rating/Rating'
+import Popover from '../utils/Popover/Popover'
 
 
 const MovieDetailsPage = ({posterUrl, movieName, movieTags}) => {
@@ -28,10 +30,14 @@ const MovieDetailsPage = ({posterUrl, movieName, movieTags}) => {
                              className={styles.movieTag}>{item}
                         </div>))}
                 </div>
+                <Rating starsCount={4.2}/>
             </div>
             <div className={styles.controls}>
                 <Button text={`Watch Now`}/>
-                <Button text={`Info`}/>
+                <Popover text={`Info`}>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi cupiditate dolorum, iure molestiae quas tempora.
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi cupiditate dolorum, iure molestiae quas tempora.
+                </Popover>
             </div>
         </main>
     </div>
