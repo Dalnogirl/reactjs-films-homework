@@ -2,10 +2,11 @@ import {moviesApi} from '../dal/dal'
 
 const SET_TOP_RATED_MOVIES = 'SET_TOP_RATED_MOVIES'
 const SET_GENRES_ARRAY = 'SET_GENRES_ARRAY'
+const SET_POPULAR_MOVIES = 'SET_POPULAR_MOVIES'
 
 const initialState = {
     moviesList: null,
-    genresArray: []
+    genresArray: null
 }
 
 function moviesReducer(state = initialState, action) {
@@ -22,6 +23,12 @@ function moviesReducer(state = initialState, action) {
                 genresArray: {...action.data}
             }
         }
+        case SET_POPULAR_MOVIES: {
+            return {
+                ...state,
+                moviesList: {...action.data}
+            }
+        }
         default:
             return state
     }
@@ -29,7 +36,8 @@ function moviesReducer(state = initialState, action) {
 
 let moviesActions = {
     setTopRatedMovies: (data) => ({type: SET_TOP_RATED_MOVIES, data}),
-    setGenresArray: (data) => ({type: SET_GENRES_ARRAY, data})
+    setGenresArray: (data) => ({type: SET_GENRES_ARRAY, data}),
+    setPopularMovies: data => ({type: SET_POPULAR_MOVIES, data})
 }
 
 export let setTopRatedMovies = (page) => {
@@ -37,6 +45,15 @@ export let setTopRatedMovies = (page) => {
         moviesApi.getTopRatedMovies(page)
             .then(data => {
                 dispatch(moviesActions.setTopRatedMovies(data))
+            })
+    }
+}
+
+export let setPopularMovies = (page) => {
+    return (dispatch) => {
+        moviesApi.getPopularMovies(page)
+            .then(data => {
+                dispatch(moviesActions.setPopularMovies(data))
             })
     }
 }
