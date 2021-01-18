@@ -1,0 +1,23 @@
+.navbar {
+  height: 50px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  background-color: black;
+  color: white;
+  //box-shadow: 0 10px 5px 1px black;
+
+  justify-content: space-around;
+
+  .navLink {
+    text-decoration: none;
+    color: white;
+    font-size: 20px;
+  }
+
+  .selected {
+    font-weight: bold;
+    color: white;
+    font-family: "Arial Black", serif;
+  }
+}
