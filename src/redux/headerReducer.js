@@ -2,7 +2,7 @@ import {headerAPI} from '../dal/dal'
 
 const GET_MOVIE_INFO = 'GET_MOVIE_INFO'
 const initialState = {
-    movieInfo: null
+    //movieInfo: null
 }
 
 function headerReducer(state = initialState, action) {
@@ -23,17 +23,17 @@ let headerActions = {
 }
 
 export let getMovieInfo = (movieId) => {
-    // return async (dispatch) => {
-    //     let data = await headerAPI.getMovieInfo(movieId)
-    //     dispatch(headerActions.getMovieInfo(data))
-    // }
-
-    return (dispatch) => {
-        headerAPI.getMovieInfo(movieId)
-            .then(data => {
-                dispatch(headerActions.getMovieInfo(data))
-            })
+    return async (dispatch) => {
+        let data = await headerAPI.getMovieInfo(movieId)
+        dispatch(headerActions.getMovieInfo(data))
     }
+
+    // return (dispatch) => {
+    //     headerAPI.getMovieInfo(movieId)
+    //         .then(data => {
+    //             dispatch(headerActions.getMovieInfo(data))
+    //         })
+    // }
 }
 
 
