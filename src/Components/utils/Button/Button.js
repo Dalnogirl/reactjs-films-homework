@@ -1,10 +1,11 @@
 import React from 'react'
 import styles from './Button.module.scss'
 
-const Button = ({text, onClick}) => (
+const Button = (props) => (
     <div className={styles.button}
-         onClick={onClick}>
-        {text}
+         style={{width:props.width}}
+         onClick={props.onClick}>
+        {props.children}
     </div>
 )
 
