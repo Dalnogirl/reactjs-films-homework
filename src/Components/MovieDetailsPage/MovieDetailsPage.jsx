@@ -9,18 +9,28 @@ import {useDispatch, useSelector} from 'react-redux'
 import {getMovieInfo} from '../../redux/headerReducer'
 import {getMovieInfoSelector} from '../../redux/selectors/selectors'
 import Loader from '../utils/Loader/Loader'
-
+import {useLocation} from 'react-router-dom'
 
 const MovieDetailsPage = ({}) => {
     let dispatch = useDispatch()
+    const location = useLocation()
+    console.log('LOCATION IS  ')
+    console.log(location)
     useEffect(() => {
-        dispatch(getMovieInfo(550))
-    }, [])
+        let movieId = location.pathname.match(/(\d+)$/gmi) ? location.pathname.match(/(\d+)$/gmi)[0] : 123
+        console.log(movieId)
+        dispatch(getMovieInfo(movieId))
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        })
+    }, [location])
+
 
     let movieInfo = useSelector(getMovieInfoSelector)
 
-    return movieInfo? <div className={styles.container}
-                style={{backgroundImage: `url(https://image.tmdb.org/t/p/original${movieInfo.backdrop_path})`}}>
+    return movieInfo ? <div className={styles.container}
+                            style={{backgroundImage: `url(https://image.tmdb.org/t/p/original${movieInfo.backdrop_path})`}}>
         <header className={styles.header}>
             <h1 className={styles.logo}>FILMS</h1>
             <div className={styles.searchContainer}>
@@ -45,7 +55,7 @@ const MovieDetailsPage = ({}) => {
                 </Popover>
             </div>
         </main>
-    </div>: <Loader/>
+    </div> : <Loader/>
 }
 
 export default MovieDetailsPage

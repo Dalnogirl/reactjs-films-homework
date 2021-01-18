@@ -4,11 +4,15 @@ import play from '../../assets/play (1).svg'
 import Button from '../utils/Button/Button'
 import MovieTags from '../utils/MovieTags/MovieTags'
 import Rating from '../utils/Rating/Rating'
+import {useHistory} from 'react-router-dom'
 
-const MovieCard = React.memo(({movieName, rating, movieTags, poster, overview, genres}) => {
+const MovieCard = React.memo(({movieName, rating, movieTags, poster, overview, genres, id}) => {
     if (movieName.length > 14) movieName = movieName.slice(0, 14) + '...'
     let [hover, setHover] = useState(false)
     let [infoMode, setInfoMode] = useState(false)
+    const history = useHistory()
+
+    const url = history.location.pathname.match(/^\/(\w+)/gi)[0]
 
     return (
         <div className={styles.card}>
@@ -35,7 +39,10 @@ const MovieCard = React.memo(({movieName, rating, movieTags, poster, overview, g
 
             <footer className={styles.footer}>
                 <div className={styles.nameAndRating}>
-                    <p className={styles.name}>{movieName}</p>
+                    <div className={styles.name}
+                         onClick={() => {
+                             history.push(`${url}/${id}`)
+                         }}>{movieName}</div>
                     <Rating starsCount={rating}/>
                 </div>
                 <MovieTags movieTags={movieTags} genres={genres}/>
