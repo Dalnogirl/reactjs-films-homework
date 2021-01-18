@@ -4,7 +4,7 @@ import axios from 'axios'
 let axiosInstance = axios.create({
     baseURL: 'https://api.themoviedb.org/3',
     // headers: {
-    //     'X-CMC_PRO_API_KEY': '0d62501dce3049a65b9d183d8e927cfa'
+    //     'API-KEY': '0d62501dce3049a65b9d183d8e927cfa'
     // }
 })
 
@@ -17,6 +17,10 @@ export let headerAPI = {
 export let moviesApi = {
     getTopRatedMovies: (page) => (
         axiosInstance.get(`/movie/top_rated?api_key=0d62501dce3049a65b9d183d8e927cfa&page=${page}`)
+            .then(response => response.data)
+    ),
+    getPopularMovies:(page) => (
+        axiosInstance.get(`/movie/popular?api_key=0d62501dce3049a65b9d183d8e927cfa&page=${page}`)
             .then(response => response.data)
     ),
      getGenresArray: () => {
