@@ -27,6 +27,7 @@ export let getMovieInfo = (movieId) => {
     //     let data = await headerAPI.getMovieInfo(movieId)
     //     dispatch(headerActions.getMovieInfo(data))
     // }
+
     return (dispatch) => {
         headerAPI.getMovieInfo(movieId)
             .then(data => {

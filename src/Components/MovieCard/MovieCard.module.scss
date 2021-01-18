@@ -1,0 +1,88 @@
+.movieCard {
+  background-color: white;
+  display: flex;
+  height: 350px;
+  margin: 25px;
+  width: 300px;
+  flex-direction: column;
+  border-radius: 5px;
+  transition: all 0.3s;
+  box-shadow: 0 0 10px 0 rgb(79, 79, 79);
+
+  footer {
+    padding: 10px;
+  }
+
+  .movieNameAndRating {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .movieName {
+      margin: 0;
+      font-size: 20px;
+      font-weight: bold;
+      font-family: "Yu Gothic", serif;
+    }
+
+  }
+
+  &:hover {
+    box-shadow: 0 0 15px 1px rgb(79, 79, 79);
+  }
+
+
+}
+
+
+.onHoverInfo {
+  display: none;
+  transition: all 0.3s;
+}
+
+.smallPoster {
+  height: 300px;
+  background-size: cover;
+  border-radius: 5px 5px 0 0;
+  transition: all 0.3s;
+
+  &:hover {
+    position: relative;
+
+    .onHoverInfo {
+      background-color: black;
+      opacity: 0.5;
+      display: flex;
+      border-radius: 5px 5px 0 0;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+      height: 100%;
+      width: 100%;
+      position: absolute;
+    }
+  }
+}
+
+.overviewMode {
+  height: 300px;
+  overflow: auto;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  color: white;
+  background-size: cover;
+  background-color: black;
+  border-radius: 5px 5px 0 0;
+  padding: 10px;
+  transition: all 0.3s;
+
+}
+
+
+
+
+.playButton {
+  width: 100px;
+  margin-bottom: 15px;
+}

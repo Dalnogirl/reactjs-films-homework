@@ -4,10 +4,14 @@
   box-shadow: inset 0px 0px 90px 40px #000000;
   font-size: 2rem;
   padding: 15px;
-  height: 500px; //todo
+  height: 100vh; //todo
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  @media screen and (min-width: 600px) {
+    background-image: none; //todo show small poster on mobile screens
+  }
 
   .header, main {
     display: flex;
@@ -30,17 +34,14 @@
   .controls {
     display: flex;
     justify-content: space-between;
-    width: 150px;
+    width: 200px;
+  }
+
+  .movieName {
+    font-size: 3rem;
   }
 
 
-  .movieTagContainer {
-    display: flex;
-    justify-content: space-between;
 
-    .movieTag {
-      font-size: 15px;
-    }
-  }
 
 }

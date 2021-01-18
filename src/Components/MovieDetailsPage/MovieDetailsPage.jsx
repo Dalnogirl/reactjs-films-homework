@@ -1,42 +1,46 @@
-import React from 'react'
-//import {Rate} from 'antd'
+import React, {useEffect} from 'react'
 import styles from './MovieDetailsPage.module.scss'
 import Button from '../utils/Button/Button'
 import Input from '../utils/Input/Input'
 import Rating from '../utils/Rating/Rating'
 import Popover from '../utils/Popover/Popover'
+import MovieTags from '../utils/MovieTags/MovieTags'
+import {useDispatch, useSelector} from 'react-redux'
+import {getMovieInfo} from '../../redux/headerReducer'
+import {getMovieInfoSelector} from '../../redux/selectors/selectors'
 
 
-const MovieDetailsPage = ({posterUrl, movieName, movieTags}) => {
-    const tags = ['Adventure', 'Drama', 'Family', 'Fantasy'] //just a placeholder
-    let background = posterUrl //just a placeholder
-        ? posterUrl
-        : `https://www.newstatesman.com/sites/default/files/styles/cropped_article_image/public/blogs_2016/04/2016_16_film.jpg?itok=K59eDFav`
-    return <div className={styles.container}
-                style={{backgroundImage: `url(${background})`}}>
+const MovieDetailsPage = ({}) => {
+    let dispatch = useDispatch()
+    useEffect(() => {
+        dispatch(getMovieInfo(550))
+    }, [])
+
+    let movieInfo = useSelector(getMovieInfoSelector)
+
+    return movieInfo && <div className={styles.container}
+                style={{backgroundImage: `url(https://image.tmdb.org/t/p/original${movieInfo.backdrop_path})`}}>
         <header className={styles.header}>
             <h1 className={styles.logo}>FILMS</h1>
             <div className={styles.searchContainer}>
                 <Input type="text" placeholder={'Search'}/>
-                <Button text={`Search`}/>
+                <Button>Search</Button>
             </div>
         </header>
         <main className={styles.main}>
             <div className={styles.mainInfo}>
-                <p className={styles.movieName}>The Jungle Book</p>
+                <p className={styles.movieName}>
+                    {movieInfo.original_title}
+                </p>
                 <div className={styles.movieTagContainer}>
-                    {tags.map((item, index) => (
-                        <div key={index}
-                             className={styles.movieTag}>{item}
-                        </div>))}
+                    <MovieTags movieTags={movieInfo.genres}/>
                 </div>
-                <Rating starsCount={4.2}/>
+                <Rating starsCount={movieInfo.vote_average / 2}/>
             </div>
             <div className={styles.controls}>
-                <Button text={`Watch Now`}/>
+                <Button>Watch now</Button>
                 <Popover text={`Info`}>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi cupiditate dolorum, iure molestiae quas tempora.
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi cupiditate dolorum, iure molestiae quas tempora.
+                    {movieInfo.overview}
                 </Popover>
             </div>
         </main>
