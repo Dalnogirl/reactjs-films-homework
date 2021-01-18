@@ -11,11 +11,13 @@ const Popover = (props) => {
                     {props.children}
                 </div>
             </div>
-            <Button text={props.text}
-                    onClick={() => setActiveMode(false)}/>
+            <Button onClick={() => setActiveMode(false)}>
+                {props.text}
+            </Button>
         </div>
-        : <Button text={props.text}
-                  onClick={() => setActiveMode(true)}/>
+        : <Button onClick={() => setActiveMode(true)}>
+            {props.text}
+        </Button>
 
 
 }

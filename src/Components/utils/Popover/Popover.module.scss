@@ -1,9 +1,8 @@
 .additionalInfo {
   position: absolute;
   width: 500px;
-  bottom: 45px;
+  bottom: 65px;
   right: 0;
-  background-color: black;
   border-radius: 10px;
   font-size: 20px;
   overflow: auto;
@@ -16,4 +15,6 @@
 
 .paddingContainer {
   padding: 15px;
+  opacity: 0.8;
+  background-color: black;
 }
