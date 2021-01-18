@@ -5,7 +5,7 @@ const SET_GENRES_ARRAY = 'SET_GENRES_ARRAY'
 
 const initialState = {
     moviesList: null,
-    genresArray: null
+    genresArray: []
 }
 
 function moviesReducer(state = initialState, action) {

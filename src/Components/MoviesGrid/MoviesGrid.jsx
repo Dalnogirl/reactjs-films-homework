@@ -10,18 +10,15 @@ const MoviesGrid = ({}) => {
     const dispatch = useDispatch()
 
 
-
     useEffect(() => {
         dispatch(setTopRatedMovies(1))
         dispatch(setGenresArray())
         let options = {
             root: null,
-            rootMargin: '21px',
+            rootMargin: '20px',
             threshold: 1.0
         }
-        debugger
         const handleObserver = (entities) => {
-            debugger
             const target = entities[0]
             if (target.isIntersecting) {
                 setPage((page) => page + 1)
@@ -34,14 +31,12 @@ const MoviesGrid = ({}) => {
     }, [])
 
 
-
     let list = useSelector(getMoviesSelector)
     let genres = useSelector(getGenresSelector)
 
     let [page, setPage] = useState(1) // tracking on which page we currently are
 
     const loader = useRef(null)
-
 
 
     // useEffect(() => {
@@ -59,14 +54,14 @@ const MoviesGrid = ({}) => {
 
     useEffect(() => {
         dispatch(setTopRatedMovies(page))
-        window.scrollTo(0, 750)
+        window.scrollTo({
+            top: 750,
+            behavior: 'smooth'
+        })
     }, [page])
 
 
-
-
-    return !list
-        ? <div className={styles.container}>
+    return !list ? <div className={styles.container}>
             <Loader/>
         </div>
         : <div className={styles.container}>
