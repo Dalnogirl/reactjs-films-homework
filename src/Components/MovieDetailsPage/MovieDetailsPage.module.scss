@@ -9,9 +9,7 @@
   flex-direction: column;
   justify-content: space-between;
 
-  @media screen and (min-width: 600px) {
-    background-image: none; //todo show small poster on mobile screens
-  }
+
 
   .header, main {
     display: flex;
@@ -23,6 +21,9 @@
       display: flex;
       width: 350px;
       justify-content: space-between;
+      @media screen and (max-width: 600px){
+        display: none;
+      }
     }
 
     .logo {
@@ -35,13 +36,28 @@
     display: flex;
     justify-content: space-between;
     width: 200px;
+    @media screen and (max-width: 600px){
+      flex-direction: column;
+      width: 100px;
+      height: 100px;
+      justify-content: space-between;
+    }
   }
 
   .movieName {
     font-size: 3rem;
+    margin: 0;
   }
 
+}
 
+.main {
+  margin-bottom: 25px;
+}
 
+.mainInfoWrapper {
+  border-radius: 10px;
+  background-color: rgb(0,0,0,0.7);
+  padding: 30px;
 
 }
