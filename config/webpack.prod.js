@@ -1,4 +1,3 @@
-
 const {merge} = require('webpack-merge')
 const base = require('./webpack.base')
 const path = require('path')
@@ -24,16 +23,16 @@ module.exports = merge([base, {
             {
                 test: /\.s[ac]ss$/i,
                 use: [
-                    'style-loader',
                     {
-                        loader: MiniCssExtractPlugin.loader
+                        loader: MiniCssExtractPlugin.loader,
                     },
                     {
-                        loader: 'css-loader', options: {modules: true,}
+                        loader: 'css-loader',
+                        options: {
+                            modules: true,
+                        },
                     },
-
                     'sass-loader',
-
                 ],
             },
             {
