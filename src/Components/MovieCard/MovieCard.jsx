@@ -18,7 +18,6 @@ const MovieCard = React.memo(({movieName, rating, movieTags, poster, overview, g
         <div className={styles.card}>
             <div className={styles.poster}
                  onMouseEnter={() => setHover(true)}
-
                  style={{backgroundImage: `url(https://image.tmdb.org/t/p/original${poster})`}}>
                 {hover &&
                 <div onMouseLeave={() => {

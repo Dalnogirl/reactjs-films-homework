@@ -2,7 +2,7 @@ import React, {useEffect, useRef, useState} from 'react'
 import styles from './MoviesGrid.module.scss'
 import MovieCard from '../MovieCard/MovieCard'
 import {useDispatch, useSelector} from 'react-redux'
-import {setGenresArray, setPopularMovies, setTopRatedMovies} from '../../redux/moviesReducer'
+import {setGenresArray} from '../../redux/moviesReducer'
 import {getGenresSelector, getMoviesSelector} from '../../redux/selectors/selectors'
 import Loader from '../utils/Loader/Loader'
 
@@ -29,7 +29,8 @@ const MoviesGrid = ({setMovies}) => {
         if (loader.current) {
             observer.observe(loader.current)
         }
-    }, [])
+
+    }, [setMovies])
 
     let list = useSelector(getMoviesSelector)
     let genres = useSelector(getGenresSelector)
