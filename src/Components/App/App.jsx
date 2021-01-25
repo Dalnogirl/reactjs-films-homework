@@ -4,28 +4,27 @@ import styles from './App.scss'
 import MovieDetailsPage from '../MovieDetailsPage/MovieDetailsPage'
 import {Provider} from 'react-redux'
 import store from '../../redux/store'
-import {HashRouter, useLocation} from 'react-router-dom'
+import {BrowserRouter, Redirect, Route} from 'react-router-dom'
 import MoviesGrid from '../MoviesGrid/MoviesGrid'
 import Navbar from '../Navbar/Navbar'
-import {setPopularMovies, setTopRatedMovies} from '../../redux/moviesReducer'
+import Input from '../utils/Input/Input'
 
 
 const App = () => {
-    const location = useLocation()
-    let movieId = location.pathname.match(/(\d+)$/gmi) ? location.pathname.match(/(\d+)$/gmi)[0] : 123
-    let gridFilter = location.pathname.match(/^\/(\w+)/gi)[0]
-    let setMovieCallbacks = {
-        '/popular': setPopularMovies,
-        '/topRated': setTopRatedMovies
-    }
-    let setMovieCallback = setMovieCallbacks[gridFilter]
-
     return (
         <div className={styles.app}>
-            <MovieDetailsPage movieId={movieId}/>
+            <Route exact path='/' render={() => <Redirect to={`/filter=topRated`}/>}/>
+            <header className={styles.header}>
+                <h1 className={styles.logo}>FILMS</h1>
+                <div className={styles.searchContainer}>
+                    <Input type="text" placeholder={'Search'}/>
+                </div>
+            </header>
+            <Route path={[ '/search?q=:search&page=:page&id=:id',
+                '/filter=:filterName&page=:page&id=:id']} render={() => <MovieDetailsPage/>}/>
             <main className={styles.main}>
                 <Navbar/>
-                <MoviesGrid setMovies={setMovieCallback}/>
+                <Route path={'/'} render={() => <MoviesGrid/>}/>
             </main>
         </div>
     )
@@ -33,10 +32,10 @@ const App = () => {
 
 const AppContainer = () => (
     <Provider store={store}>
-        <HashRouter>
+        <BrowserRouter>
             <App>
             </App>
-        </HashRouter>
+        </BrowserRouter>
     </Provider>
 
 )
