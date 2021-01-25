@@ -1,14 +1,13 @@
 const {merge} = require('webpack-merge')
 const base = require('./webpack.base')
-const path = require('path')
+
 const TercerWebpackPlugin = require('terser-webpack-plugin')
 const {CleanWebpackPlugin} = require('clean-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 module.exports = merge([base, {
     mode: 'production',
     output: {
-        path: path.join(__dirname, '/../build'),
-        filename: '[name].js'
+
     },
     plugins: [
         new CleanWebpackPlugin,

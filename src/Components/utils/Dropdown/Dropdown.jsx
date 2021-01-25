@@ -1,34 +1,33 @@
 import React, {useState} from 'react'
 import styles from './Dropdown.module.scss'
 import {useSelector} from 'react-redux'
-import Loader from '../Loader/Loader'
-import {getGenresSelector} from '../../../redux/selectors/selectors'
-import Link from 'react-router-dom/modules/Link'
+import {getGenresSelector, getIsFetching} from '../../../redux/selectors/selectors'
 import {NavLink} from 'react-router-dom'
+import {urlCreatorForDropdown} from '../functions/functions'
 
 const Dropdown = React.memo(() => {
-    let [isHovered, setIsHovered] = useState(false)
-
+    let isFetching = useSelector(getIsFetching)
+    let [isClicked, setIsClicked] = useState(false)
     let genres = useSelector(getGenresSelector)
-    if (genres) {
-        genres = genres.genres.map(i => i.name)
-        console.log(genres)
-    }
-
-    return genres ? <div className={styles.dd_wrapper}>
+    return !isFetching ? <div className={styles.dd_wrapper}>
         <div className={styles.dd_header}
-             onMouseEnter={() => setIsHovered(true)}
-             >
+             onClick={() => {
+                 isClicked ? setIsClicked(false) : setIsClicked(true)
+             }}>
             <div className={styles.dd_header_title}>
                 Search By Genre
             </div>
         </div>
-        {isHovered && <div className={styles.dd_list}
-              onMouseLeave={() => setIsHovered(false)}>
-            {genres.map((i,idx) => <NavLink key={idx} to={'/'} className={styles.link}>{i}</NavLink>)}
+        {isClicked && <div className={styles.dd_list}>
+            {genres.genres.map((i, idx) => <NavLink onClick={() => {
+                setIsClicked(false)
+            }} key={idx} to={urlCreatorForDropdown(location, i.id)}
+                                                    className={styles.link}>{i.name}</NavLink>)}
         </div>}
-    </div> : <Loader/>
+    </div> : <div className={styles.dd_header_title}>
+        Search By Genre
+    </div>
 
 })
 
-export default Dropdown
+export default React.memo(Dropdown)

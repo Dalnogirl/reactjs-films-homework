@@ -1,68 +1,94 @@
 import {moviesApi} from '../dal/dal'
+import {urlHelpers} from '../Components/utils/functions/functions'
 
-const SET_TOP_RATED_MOVIES = 'SET_TOP_RATED_MOVIES'
-const SET_GENRES_ARRAY = 'SET_GENRES_ARRAY'
-const SET_POPULAR_MOVIES = 'SET_POPULAR_MOVIES'
+const SET_MOVIES = 'SET_MOVIES'
+const SET_GENRES_OBJ = 'SET_GENRES_OBJ'
+const SET_IS_FETCHING = 'SET_IS_FETCHING'
+const INCREMENT_CURRENT_PAGE = 'INCREMENT_CURRENT_PAGE'
+const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
 
 const initialState = {
+    isFetching: false,
     moviesList: null,
-    genresArray: null
+    genresObj: {},
+
 }
 
 function moviesReducer(state = initialState, action) {
     switch (action.type) {
-        case SET_TOP_RATED_MOVIES: {
-            return {
-                ...state,
-                moviesList: {...state.moviesList,...action.data}
-            }
-        }
-        case SET_GENRES_ARRAY: {
-            return {
-                ...state,
-                genresArray: {...action.data}
-            }
-        }
-        case SET_POPULAR_MOVIES: {
+        case SET_MOVIES: {
             return {
                 ...state,
                 moviesList: {...action.data}
             }
         }
+        case SET_GENRES_OBJ: {
+            return {
+                ...state,
+                genresObj: {...action.data}
+            }
+        }
+        case SET_IS_FETCHING: {
+            return {
+                ...state,
+                isFetching: action.data
+            }
+        }
+        case SET_CURRENT_PAGE: {
+            return {
+                ...state,
+                currentPage: action.data
+            }
+        }
+        case INCREMENT_CURRENT_PAGE: {
+            return {
+                ...state,
+                currentPage: state.currentPage + 1
+            }
+        }
+
         default:
             return state
     }
 }
 
-let moviesActions = {
-    setTopRatedMovies: (data) => ({type: SET_TOP_RATED_MOVIES, data}),
-    setGenresArray: (data) => ({type: SET_GENRES_ARRAY, data}),
-    setPopularMovies: data => ({type: SET_POPULAR_MOVIES, data})
-}
-
-export let setTopRatedMovies = (page) => {
-    return (dispatch) => {
-        moviesApi.getTopRatedMovies(page)
-            .then(data => {
-                dispatch(moviesActions.setTopRatedMovies(data))
-            })
+const urlCreatorForAJAX = (location) => {
+    let filter = urlHelpers.getFilter(location)
+    let searchQuery = urlHelpers.getSearchQuery(location)
+    let page = urlHelpers.getPage(location)
+    let genre = urlHelpers.getGenre(location)
+    if (location.search.length > 0) {
+        return `/search/movie?api_key=0d62501dce3049a65b9d183d8e927cfa&query=${searchQuery}&page=${page}`
+    } else {
+        if (genre) {
+            return `/movie/${filter}?api_key=0d62501dce3049a65b9d183d8e927cfa&page=${page}&with_genres=${genre}`
+        }
+        else return `/movie/${filter}?api_key=0d62501dce3049a65b9d183d8e927cfa&page=${page}`
     }
 }
 
-export let setPopularMovies = (page) => {
+export let moviesActions = {
+    setGenresObj: (data) => ({type: SET_GENRES_OBJ, data}),
+    setMovies: data => ({type: SET_MOVIES, data}),
+    setIsFetching: data => ({type: SET_IS_FETCHING, data}),
+
+}
+
+
+export let setGenresObj = () => {
     return (dispatch) => {
-        moviesApi.getPopularMovies(page)
-            .then(data => {
-                dispatch(moviesActions.setPopularMovies(data))
-            })
+        moviesApi.getGenresObj()
+            .then(data => dispatch(moviesActions.setGenresObj(data)))
     }
 }
 
-export let setGenresArray = () => {
-    return (dispatch) => {
-        moviesApi.getGenresArray()
-            .then(data => dispatch(moviesActions.setGenresArray(data)))
-    }
+
+export let setMovies = (location) => async (dispatch) => {
+    console.log('ajax')
+    dispatch(moviesActions.setIsFetching(true))
+    let data = await moviesApi.getMovies(urlCreatorForAJAX(location))
+    dispatch(moviesActions.setMovies(data))
+    dispatch(moviesActions.setIsFetching(false))
 }
 
 

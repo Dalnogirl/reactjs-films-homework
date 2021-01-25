@@ -1,27 +1,30 @@
 import React, {useEffect, useState} from 'react'
 import styles from './MovieTags.module.scss'
-import Loader from '../Loader/Loader'
 
-const MovieTags = ({movieTags, genres}) => {
-    let [tags, setTags] = useState(null)
+const MovieTags = (({genresNames, genresIds, allGenres}) => {
+    let [resultGenres, setResultGenres] = useState([])
+
     useEffect(() => {
-        if (genres) {
-            if (genres) setTags(genres.genres.filter(item => movieTags.includes(item.id)))
+        if (genresNames) {
+            setResultGenres(genresNames)
         } else {
-            setTags(movieTags)
+            if ('genres' in allGenres)setResultGenres(allGenres.genres.filter(item => genresIds.includes(item.id)))
         }
-    }, [movieTags])
+    }, [allGenres, genresNames])
 
-    return tags ? <div className={styles.movieTagContainer}>
-        {tags.slice(0, 4).map((item, index) => (
-            <div key={index} className={styles.movieTag}>
-                {item.name}
-            </div>))}
-    </div> : <Loader/>
+    return (
+        <div className={styles.movieTagContainer}>
+            {resultGenres
+                .slice(0, 4)
+                .map((item, index) => (
+                    <div className={styles.movieTag}
+                         key={index}>{item.name}
+                    </div>))}
+        </div>
+    )
+})
 
-}
-
-export default MovieTags
+export default React.memo(MovieTags)
 
 
 

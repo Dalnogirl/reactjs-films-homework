@@ -1,23 +1,27 @@
 .navbar {
   height: 50px;
+  box-shadow: 0 5px 15px 1px rgba(221, 221, 221, 0.5);
   width: 100%;
   display: flex;
+  position: relative;
+  z-index: 2;
   align-items: center;
-  background-color: black;
-  color: white;
+  background-color: white;
+  color: black;
   //box-shadow: 0 10px 5px 1px black;
 
   justify-content: space-around;
 
   .navLink {
+    color: black;
     text-decoration: none;
-    color: white;
     font-size: 20px;
+    transition: all 0.3s ease-in-out;
   }
 
   .selected {
+    color: black;
     font-weight: bold;
-    color: white;
-    font-family: "Arial Black", serif;
+    transform: scale(1.2);
   }
 }

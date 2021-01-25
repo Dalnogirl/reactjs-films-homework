@@ -4,15 +4,15 @@ import play from '../../assets/play (1).svg'
 import Button from '../utils/Button/Button'
 import MovieTags from '../utils/MovieTags/MovieTags'
 import Rating from '../utils/Rating/Rating'
-import {useHistory} from 'react-router-dom'
+import {Link, useLocation} from 'react-router-dom'
+import {urlCreatorForCard} from '../utils/functions/functions'
 
-const MovieCard = React.memo(({movieName, rating, movieTags, poster, overview, genres, id}) => {
+const MovieCard = (({movieName, rating, genresIds, poster, overview, id, allGenres}) => {
     if (movieName.length > 14) movieName = movieName.slice(0, 14) + '...'
     let [hover, setHover] = useState(false)
     let [infoMode, setInfoMode] = useState(false)
-    const history = useHistory()
-
-    const url = history.location.pathname.match(/^\/(\w+)/gi)[0]
+    const location = useLocation()
+    let link = urlCreatorForCard(location, id) // no id in current url, so we should pass id as argument
 
     return (
         <div className={styles.card}>
@@ -36,18 +36,18 @@ const MovieCard = React.memo(({movieName, rating, movieTags, poster, overview, g
                 </div>}
             </div>
 
-            <footer className={styles.footer}>
+            <Link to={link} className={styles.footer}>
                 <div className={styles.nameAndRating}>
                     <div className={styles.name}
-                         onClick={() => {
-                             history.push(`${url}/${id}`)
-                         }}>{movieName}</div>
+                    >{movieName}</div>
+
                     <Rating starsCount={rating}/>
                 </div>
-                <MovieTags movieTags={movieTags} genres={genres}/>
-            </footer>
+                <MovieTags allGenres={allGenres}
+                           genresIds={genresIds}/>
+            </Link>
         </div>
     )
 })
 
-export default MovieCard
+export default React.memo(MovieCard)

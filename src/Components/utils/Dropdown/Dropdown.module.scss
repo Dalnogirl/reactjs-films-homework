@@ -1,22 +1,33 @@
 .dd_wrapper {
-  //background-color: violet;
+  display: flex;
+  align-items: center;
   position: relative;
+  cursor: pointer;
+  padding: 10px;
 }
 
 .dd_list {
-  background-color: black;
+  background-color: white;
+  border-radius: 5px;
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 150px;
   position: absolute;
-  top:32px;
+  top:40px;
+  right: -10px;
   z-index: 2;
   height: 250px;
   overflow: auto;
+
 }
 
 .link {
-  padding: 10px;
+  padding: 15px;
+  text-decoration: none;
+  color: black;
+  &:hover {
+    font-weight: bold;
+  }
 
 }
