@@ -1,19 +1,18 @@
 import {createSelector} from 'reselect'
 
-export let getMovieInfoSelector = (state) => state.headerData.movieInfo
+export const getMovieInfoSelector = (state) => state.headerData.movieInfo
 
-export let getMoviesSelector = state => state.moviesData.moviesList
+export const getMoviesSelector = (state) => state.moviesData.moviesList
 
-export let getGenresSelector = state => state.moviesData.genresObj
+export const getGenresSelector = (state) => state.moviesData.genresObj
 
-export let getIsFetching = state => state.moviesData.isFetching
+export const getIsFetching = (state) => state.moviesData.isFetching
 
-export let getIsHeaderFetching = state => state.headerData.isFetching
+export const getIsHeaderFetching = (state) => state.headerData.isHeaderFetching
 
-export let getCurrentPage = state => state.moviesData.currentPage
+export const getTrailerKey = (state) => state.headerData.trailerKey
 
-export let getGenresNames = createSelector(getGenresSelector,
-    genresArray => {
-        return genresArray.map(i => i.name)
-    }
-)
+export const getCurrentPage = (state) => state.moviesData.currentPage
+
+export const getGenresNames = createSelector(getGenresSelector,
+  (genresArray) => genresArray.map((i) => i.name))
