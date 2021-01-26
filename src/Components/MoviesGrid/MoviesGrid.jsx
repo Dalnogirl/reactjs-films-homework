@@ -1,134 +1,100 @@
 import React, {useEffect, useRef, useState} from 'react'
+import {useDispatch, useSelector} from 'react-redux'
+import {useHistory, useLocation} from 'react-router-dom'
 import styles from './MoviesGrid.module.scss'
 import MovieCard from '../MovieCard/MovieCard'
-import {useHistory, useLocation} from 'react-router-dom'
-import {useDispatch, useSelector} from 'react-redux'
 import {setGenresObj, setMovies} from '../../redux/moviesReducer'
-import {getGenresSelector, getIsFetching, getMoviesSelector} from '../../redux/selectors/selectors'
+import {
+  getGenresSelector,
+  getIsFetching,
+  getMoviesSelector,
+} from '../../redux/selectors/selectors'
 import Loader from '../utils/Loader/Loader'
-import {debouncedUrlCreatorForPagination, urlHelpers} from '../utils/functions/functions'
+import {
+  debouncedUrlCreatorForPagination,
+  urlHelpers,
+} from '../utils/functions/functions'
 
-const MoviesGrid = ({}) => {
-    const dispatch = useDispatch()
-    const location = useLocation()
-    const filter = urlHelpers.getFilter(location)
-    const page = urlHelpers.getPage(location)
-    const history = useHistory()
-    let allGenres = useSelector(getGenresSelector)
-    let isFetching = useSelector(getIsFetching)
-    let genre = urlHelpers.getGenre(location)
+function useIntersection(options) {
+  const [observerEntry, setEntry] = useState({})
+  const elRef = useRef()
 
-    useEffect(() => {
-        dispatch(setMovies(location))
-        dispatch(setGenresObj())
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => setEntry(entries[0]),
+        options)
+    observer.observe(elRef.current)
+    return () => observer.disconnect()
+  }, [elRef])
 
-        window.scrollTo({
-            top: 100,
-            behavior: 'smooth'
-        })
-    }, [filter, page, genre])
+  return {observerEntry, elRef}
+}
 
-    let list = useSelector(getMoviesSelector)
+function Trigger() {
+  const history = useHistory()
+  const {observerEntry, elRef} = useIntersection({
+    root: null,
+    threshold: 1,
+    rootMargin: '30px',
+  })
+  useEffect(() => {
+    if (observerEntry.isIntersecting) {
+      let url = debouncedUrlCreatorForPagination(location)
+      if (url !== 'debounced') {
+        history.push(url)
+      }
+    }
 
-    const ref = useRef(null)
-    // const handleObserver = (entities) => {
-    //     const target = entities[0]
-    //     if (target.isIntersecting) {
-    //         if (!isFetching) {
-    //             let url = debouncedUrlCreatorForPagination(location)
-    //             console.log('pagination url ', url)
-    //             if (url !== 'debounced') {
-    //                 history.push(url)
-    //             }
-    //         }
-    //     }
-    // }
-    // let options = {
-    //     root: null,
-    //     rootMargin: '20px',
-    //     threshold: 0.1
-    // }
-    // let observer = new IntersectionObserver(handleObserver, options)
-    //
-    // if (ref.current) {
-    //     observer.observe(ref.current)
-    // }
+  }, [observerEntry.isIntersecting])
 
+  return (
+      <div ref={elRef}>
+        <h2>Scroll To Load More</h2>
+      </div>
+  )
+}
 
-    const onScreen = useOnScreen(ref)
+const MoviesGrid = () => {
+  const dispatch = useDispatch()
+  const location = useLocation()
+  const filter = urlHelpers.getFilter(location)
+  const page = urlHelpers.getPage(location)
+  const allGenres = useSelector(getGenresSelector)
+  const isFetching = useSelector(getIsFetching)
+  const genre = urlHelpers.getGenre(location)
 
-    useEffect(() => { //using custom hook
-        console.log(onScreen)
-    }, [onScreen])
+  useEffect(() => {
+    dispatch(setMovies(location))
+    dispatch(setGenresObj())
 
-    // useEffect(() => {
-    //     const observer = new IntersectionObserver(
-    //         ([entry]) => {
-    //             console.log('ya rodilsa');
-    //
-    //             if (entry.isIntersecting) {
-    //                 //here i can do something
-    //                 debugger
-    //                 console.log('It works!')
-    //             }
-    //         },
-    //         {
-    //             root: null,
-    //             rootMargin: "0px",
-    //             threshold: 0.1
-    //         }
-    //     );
-    //     if (ref.current) {
-    //         observer.observe(ref.current);
-    //     }
-    // }, [ref]);
+    window.scrollTo({
+      top: 100,
+      behavior: 'smooth',
+    })
+  }, [filter, page, genre])
 
+  const list = useSelector(getMoviesSelector)
 
-    return isFetching ? <Loader/>
-
-        : <div className={styles.container}>
-            <div className={styles.moviesGrid}>
-                {list && list.results.map((item) => <MovieCard key={item.id}
-                                                               id={item.id}
-                                                               movieName={item.title}
-                                                               genresIds={item.genre_ids}
-                                                               poster={item.poster_path}
-                                                               rating={item.vote_average / 2}
-                                                               overview={item.overview}
-                                                               allGenres={allGenres}
-                />)}
-            </div>
-            <div ref={ref} onClick={()=>{
-                if (!isFetching) {
-                    let url = debouncedUrlCreatorForPagination(location)
-                    console.log('pagination url ', url)
-                    if (url !== 'debounced') {
-                        history.push(url)
-                    }
-                } // todo onScroll pagination
-            }}>
-                <h2> Click To Load More</h2>
-            </div>
+  return isFetching ? (
+      <Loader/>
+  ) : (
+      <div className={styles.container}>
+        <div className={styles.moviesGrid}>
+          {list && list.results.map((item) => (
+              <MovieCard
+                  key={item.id}
+                  id={item.id}
+                  movieName={item.title}
+                  genresIds={item.genre_ids}
+                  poster={item.poster_path}
+                  rating={item.vote_average / 2}
+                  overview={item.overview}
+                  allGenres={allGenres}
+              />
+          ))}
         </div>
+        <Trigger/>
+      </div>
+  )
 }
-
-
-function useOnScreen(ref) {
-
-    const [isIntersecting, setIntersecting] = useState(false)
-
-    const observer = new IntersectionObserver(
-        ([entry]) => setIntersecting(entry.isIntersecting)
-    )
-    useEffect(() => {
-        observer.observe(ref.current)
-        return () => {
-            observer.disconnect()
-        }
-    }, [])
-
-    return isIntersecting
-}
-
 
 export default React.memo(MoviesGrid)
