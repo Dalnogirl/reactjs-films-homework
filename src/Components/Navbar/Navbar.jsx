@@ -17,12 +17,12 @@ const Navbar = () => {
                      activeClassName={styles.selected}>
                 Top Rated
             </NavLink>
-            <NavLink to={'filter=popular&page=1'}
+            <NavLink to={'/filter=popular&page=1'}
                      className={styles.navLink}
                      activeClassName={styles.selected}>
                 Popular
             </NavLink>
-            <NavLink to={'filter=upcoming&page=1'}
+            <NavLink to={'/filter=upcoming&page=1'}
                      className={styles.navLink}
                      activeClassName={styles.selected}>
                 Upcoming
