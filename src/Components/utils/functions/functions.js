@@ -3,9 +3,9 @@ import qs from 'qs'
 export const urlHelpers = {
   getId(location) {
     if (location.search.length > 0) {
-      return qs.parse(location.search).id
+      return qs.parse(location.search).id.match(/^(\d*)/gmi)[0]
     }
-    return qs.parse(location.pathname).id
+    return qs.parse(location.pathname).id.match(/^(\d*)/gmi)[0]
   },
   getPage(location) {
     if (location.search.length > 0) {
