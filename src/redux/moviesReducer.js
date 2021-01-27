@@ -57,7 +57,7 @@ const urlCreatorForAJAX = (location) => {
   const searchQuery = urlHelpers.getSearchQuery(location)
   const page = urlHelpers.getPage(location)
   const genre = urlHelpers.getGenre(location)
-  if (location.search.length > 0) {
+  if (location.pathname === '/search') {
     return `/search/movie?api_key=0d62501dce3049a65b9d183d8e927cfa&query=${searchQuery}&page=${page}`
   }
   if (genre) {
