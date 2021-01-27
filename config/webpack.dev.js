@@ -3,7 +3,6 @@ const {merge} = require('webpack-merge')
 const base = require('./webpack.base')
 const path = require('path')
 
-
 module.exports = merge([base, {
     mode: 'development',
     output: {
@@ -12,7 +11,6 @@ module.exports = merge([base, {
         publicPath: '/',
     },
     entry: [
-        //'react-hot-loader/patch',
         'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000',
         path.join(__dirname, '../src/index.js')],
     plugins: [
