@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {useLocation} from 'react-router-dom'
-import ReactDOM from 'react-dom'
 import styles from './MovieDetailsPage.module.scss'
 import Rating from '../utils/Rating/Rating'
 import Popover from '../utils/Popover/Popover'
@@ -12,8 +11,7 @@ import {
   getMovieInfoSelector,
 } from '../../redux/selectors/selectors'
 import Loader from '../utils/Loader/Loader'
-import {urlCreatorForCard, urlHelpers} from '../utils/functions/functions'
-import Trailer from '../Trailer/Trailer'
+import {urlHelpers} from '../utils/functions/functions'
 import Button from '../utils/Button/Button'
 import Modal from '../utils/Modal/Modal'
 
@@ -22,7 +20,6 @@ const MovieDetailsPage = () => {
   const location = useLocation()
   const isHeaderFetching = useSelector(getIsHeaderFetching)
   const id = urlHelpers.getId(location)
-  const link = urlCreatorForCard(location, id)
   const [isTrailerVisible, setIsTrailerVisible] = useState(false)
 
   useEffect(() => {
@@ -71,7 +68,5 @@ const MovieDetailsPage = () => {
       ) : <div className={styles.container}><Loader/></div>
       : null
 }
-
-
 
 export default MovieDetailsPage
