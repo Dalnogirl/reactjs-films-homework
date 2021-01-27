@@ -1,37 +1,29 @@
 import React from 'react'
 import {hot} from 'react-hot-loader'
 import {Provider} from 'react-redux'
-import {BrowserRouter, Redirect, Route} from 'react-router-dom'
+import {Redirect, BrowserRouter, Route} from 'react-router-dom'
 import styles from './App.scss'
 import MovieDetailsPage from '../MovieDetailsPage/MovieDetailsPage'
 import store from '../../redux/store'
 import MoviesGrid from '../MoviesGrid/MoviesGrid'
 import Navbar from '../Navbar/Navbar'
 import Input from '../utils/Input/Input'
-import Trailer from '../Trailer/Trailer'
 
 const App = () => (
     <div className={styles.app}>
-      <Route exact path="/"
-             render={() => <Redirect to="/filter=top_rated&page=1"/>}/>
-      <Route path={'/**/trailer'}
-             render={() => <Trailer/>}
+      <Route
+          exact
+          path="/"
+          render={() => <Redirect to="/?filter=top_rated&page=1"/>}
       />
+
       <header className={styles.header}>
         <h1 className={styles.logo}>FILMS</h1>
         <div className={styles.searchContainer}>
           <Input type="text" placeholder="Search"/>
         </div>
       </header>
-      <Route
-          path={[
-            '/search?q=:search&page=:page&id=:id',
-            '/**&id=:id']}
-          render={() => {
-            console.log('details rendered')
-            return <MovieDetailsPage/>}}
-      />
-
+      <Route path="/" render={() => <MovieDetailsPage/>}/>
       <main className={styles.main}>
         <Navbar/>
         <Route path="/" render={() => <MoviesGrid/>}/>
