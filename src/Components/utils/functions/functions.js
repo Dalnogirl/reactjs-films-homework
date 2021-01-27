@@ -6,7 +6,7 @@ export const urlHelpers = {
     return qs.parse(location.search).id
   },
   getPage(location) {
-      return +qs.parse(location.search).page
+    return +qs.parse(location.search).page
   },
   getFilter(location) {
     return qs.parse(location.search, {ignoreQueryPrefix: true}).filter
@@ -27,7 +27,7 @@ export const urlCreatorForPagination = (location) => {
     return `/search?q=${searchQuery}&page=${+page + 1}`
   }
   const filter = urlHelpers.getFilter(location)
-  if (genre) return `/filter=${filter}&with_genres=${genre}&page=${+page + 1}`
+  if (genre) return `/?filter=${filter}&with_genres=${genre}&page=${+page + 1}`
   return `/?filter=${filter}&page=${+page + 1}`
 }
 
@@ -58,4 +58,5 @@ function debounce(func, ms) {
   }
 }
 
-export const debouncedUrlCreatorForPagination = debounce(urlCreatorForPagination, 300)
+export const debouncedUrlCreatorForPagination = debounce(
+    urlCreatorForPagination, 300)
