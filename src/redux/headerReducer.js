@@ -4,7 +4,6 @@ const GET_MOVIE_INFO = 'GET_MOVIE_INFO'
 const SET_IS_HEADER_FETCHING = 'SET_IS_HEADER_FETCHING'
 const SET_TRAILER_KEY = 'SET_TRAILER_KEY'
 const initialState = {
-  //movieInfo: null
   isHeaderFetching: false,
   trailerKey: null,
 }
@@ -14,7 +13,7 @@ function headerReducer(state = initialState, action) {
     case GET_MOVIE_INFO: {
       return {
         ...state,
-        movieInfo: {...action.data},
+        movieInfo: action.data,
       }
     }
     case SET_IS_HEADER_FETCHING: {
@@ -34,28 +33,25 @@ function headerReducer(state = initialState, action) {
   }
 }
 
-let headerActions = {
+const headerActions = {
   getMovieInfo: (data) => ({type: GET_MOVIE_INFO, data}),
-  setIsHeaderFetching: data => ({type: SET_IS_HEADER_FETCHING, data}),
-  setTrailerKey: data => ({type: SET_TRAILER_KEY, data}),
+  setIsHeaderFetching: (data) => ({type: SET_IS_HEADER_FETCHING, data}),
+  setTrailerKey: (data) => ({type: SET_TRAILER_KEY, data}),
 
 }
 
-export let getMovieInfo = (movieId) => {
-  return async (dispatch) => {
-    dispatch(headerActions.setIsHeaderFetching(true))
-    let data = await headerAPI.getMovieInfo(movieId)
-    dispatch(headerActions.getMovieInfo(data))
-    dispatch(headerActions.setIsHeaderFetching(false))
-  }
+export const getMovieInfo = (movieId) => async (dispatch) => {
+  dispatch(headerActions.setIsHeaderFetching(true))
+  const data = await headerAPI.getMovieInfo(movieId)
+  dispatch(headerActions.getMovieInfo(data))
+  dispatch(headerActions.setIsHeaderFetching(false))
 }
 
-export const setTrailerKey = movieId => async dispatch => {
+export const setTrailerKey = (movieId) => async (dispatch) => {
   let key
   try {
     key = await headerAPI.getTrailerKey(movieId)
     key = key.results[0].key
-
   } catch (e) {
     console.log(e)
   }
