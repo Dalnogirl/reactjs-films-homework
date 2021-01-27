@@ -1,6 +1,6 @@
-import React, {useEffect, useRef, useState} from 'react'
+import React, {useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import {useHistory, useLocation} from 'react-router-dom'
+import {useLocation} from 'react-router-dom'
 import styles from './MoviesGrid.module.scss'
 import MovieCard from '../MovieCard/MovieCard'
 import {setGenresObj, setMovies} from '../../redux/moviesReducer'
@@ -10,47 +10,8 @@ import {
   getMoviesSelector,
 } from '../../redux/selectors/selectors'
 import Loader from '../utils/Loader/Loader'
-import {
-  debouncedUrlCreatorForPagination,
-  urlHelpers,
-} from '../utils/functions/functions'
-
-function useIntersection(options) {
-  const [observerEntry, setEntry] = useState({})
-  const elRef = useRef()
-
-  useEffect(() => {
-    const observer = new IntersectionObserver((entries) => setEntry(entries[0]),
-        options)
-    observer.observe(elRef.current)
-    return () => observer.disconnect()
-  }, [elRef])
-
-  return {observerEntry, elRef}
-}
-
-function Trigger({location}) {
-  const history = useHistory()
-  const {observerEntry, elRef} = useIntersection({
-    root: null,
-    threshold: 1,
-    rootMargin: '30px',
-  })
-  useEffect(() => {
-    if (observerEntry.isIntersecting) {
-      const url = debouncedUrlCreatorForPagination(location)
-      if (url !== 'debounced') {
-        history.push(url)
-      }
-    }
-  }, [observerEntry.isIntersecting])
-
-  return (
-      <div ref={elRef}>
-        <h2>Scroll To Load More</h2>
-      </div>
-  )
-}
+import {urlHelpers} from '../utils/functions/functions'
+import Trigger from './Trigger/Trigger'
 
 const MoviesGrid = () => {
   const dispatch = useDispatch()
@@ -79,7 +40,7 @@ const MoviesGrid = () => {
   ) : (
       <div className={styles.container}>
         <div className={styles.moviesGrid}>
-          {list && list.results.map((item) => (
+          {list && list?.results.map((item) => (
               <MovieCard
                   key={item.id}
                   id={item.id}
