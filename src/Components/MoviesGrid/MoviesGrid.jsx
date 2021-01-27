@@ -29,7 +29,7 @@ function useIntersection(options) {
   return {observerEntry, elRef}
 }
 
-function Trigger() {
+function Trigger({location}) {
   const history = useHistory()
   const {observerEntry, elRef} = useIntersection({
     root: null,
@@ -38,12 +38,11 @@ function Trigger() {
   })
   useEffect(() => {
     if (observerEntry.isIntersecting) {
-      let url = debouncedUrlCreatorForPagination(location)
+      const url = debouncedUrlCreatorForPagination(location)
       if (url !== 'debounced') {
         history.push(url)
       }
     }
-
   }, [observerEntry.isIntersecting])
 
   return (
@@ -93,7 +92,7 @@ const MoviesGrid = () => {
               />
           ))}
         </div>
-        <Trigger/>
+        <Trigger location={location}/>
       </div>
   )
 }
