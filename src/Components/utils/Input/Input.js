@@ -20,11 +20,6 @@ const Input = ({placeholder}) => {
             className={styles.navLink}>
                 <img className={styles.icon} src={icon} alt=""/>
             </NavLink>
-            {/*<img onClick={() => {*/}
-            {/*    history.replace(inputText)*/}
-            {/*}} className={styles.icon}*/}
-            {/*     src={searchIcon}*/}
-            {/*     alt=""/>*/}
         </div>
     )
 }
