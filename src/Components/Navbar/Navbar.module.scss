@@ -8,6 +8,7 @@
   background-color: #393838;
   color: white;
   justify-content: space-around;
+  font-size: 20px;
 
   .navLink {
     color: white;
@@ -17,7 +18,7 @@
   }
 
   .selected {
-    color: #ffa600;
+    color: #48cfad;
     font-weight: bold;
     transform: scale(1.2);
   }
