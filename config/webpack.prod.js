@@ -7,7 +7,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 module.exports = merge([base, {
     mode: 'production',
     output: {
-
+        publicPath: '/',
     },
     plugins: [
         new CleanWebpackPlugin,
