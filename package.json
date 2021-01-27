@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "dev": "cross-env NODE_ENV=development node index.js ",
+    "start": "cross-env NODE_ENV=production webpack",
+    "dev": "cross-env node server.js",
     "build": "cross-env NODE_ENV=production webpack",
     "test": "",
     "lint": "eslint src --ext .js,.jsx "
@@ -30,7 +30,6 @@
     "axios": "^0.21.1",
     "cross-env": "^7.0.3",
     "express": "^4.17.1",
-    "lodash": "^4.17.20",
     "node-sass": "^5.0.0",
     "nodemon": "^2.0.7",
     "qs": "^6.7.0",
