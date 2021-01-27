@@ -61,6 +61,7 @@ const MoviesGrid = () => {
   const allGenres = useSelector(getGenresSelector)
   const isFetching = useSelector(getIsFetching)
   const genre = urlHelpers.getGenre(location)
+  const searchQuery = urlHelpers.getSearchQuery(location)
 
   useEffect(() => {
     dispatch(setMovies(location))
@@ -70,7 +71,7 @@ const MoviesGrid = () => {
       top: 100,
       behavior: 'smooth',
     })
-  }, [filter, page, genre])
+  }, [filter, page, genre, searchQuery])
 
   const list = useSelector(getMoviesSelector)
 
