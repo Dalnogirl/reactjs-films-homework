@@ -1,15 +1,14 @@
-import {createStore, combineReducers, applyMiddleware} from 'redux'
-import thunkMiddleWare from "redux-thunk";
+import {applyMiddleware, combineReducers, createStore} from 'redux'
+import thunkMiddleWare from 'redux-thunk'
+import {composeWithDevTools} from 'redux-devtools-extension'
 import headerReducer from './headerReducer'
 import moviesReducer from './moviesReducer'
-import {composeWithDevTools} from 'redux-devtools-extension'
 
-let rootReducer = combineReducers({
-    headerData: headerReducer,
-    moviesData: moviesReducer
+const rootReducer = combineReducers({
+  headerData: headerReducer,
+  moviesData: moviesReducer,
 })
 
-let store = createStore(rootReducer,composeWithDevTools(applyMiddleware(thunkMiddleWare)))
-window.store =store
-
+const store = createStore(rootReducer,
+    composeWithDevTools(applyMiddleware(thunkMiddleWare)))
 export default store
