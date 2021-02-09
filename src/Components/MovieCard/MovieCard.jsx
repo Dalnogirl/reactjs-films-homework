@@ -5,19 +5,20 @@ import play from '../../assets/play (1).svg'
 import Button from '../utils/Button/Button'
 import MovieTags from '../utils/MovieTags/MovieTags'
 import Rating from '../utils/Rating/Rating'
-import {urlCreatorForCard} from '../utils/functions/functions'
+import {urlHelpers} from '../utils/functions/functions'
 import Modal from '../utils/Modal/Modal'
 
 const MovieCard = (({
   movieName, rating, genresIds, poster, overview, id, allGenres,
 }) => {
   const [movieTitle, setMovieTitle] = useState(movieName)
+  const location = useLocation()
+  const searchQuery = urlHelpers.getSearchQuery(location)
+
   useEffect(() => {
     if (movieName.length > 14) setMovieTitle(`${movieName.slice(0, 14)}...`)
   }, [])
   const [infoMode, setInfoMode] = useState(false)
-  const location = useLocation()
-  const link = urlCreatorForCard(location, id)
   const [isTrailerVisible, setIsTrailerVisible] = useState(false)
 
   return (
@@ -64,7 +65,12 @@ const MovieCard = (({
             </div>
           </div>
 
-          <Link to={link} className={styles.footer}>
+          <Link
+              to={searchQuery
+                  ? `/movie/${id}/search?q=${searchQuery}`
+                  : `/movie/${id}`}
+              className={styles.footer}
+          >
             <div className={styles.nameAndRating}>
               <div className={styles.name}>
                 {movieTitle}

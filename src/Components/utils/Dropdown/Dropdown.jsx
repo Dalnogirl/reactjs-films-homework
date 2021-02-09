@@ -1,15 +1,15 @@
 import React, {useState} from 'react'
-import {useSelector} from 'react-redux'
-import {NavLink} from 'react-router-dom'
+import {useDispatch, useSelector} from 'react-redux'
 import styles from './Dropdown.module.scss'
 import {
   getGenresSelector,
   getIsFetching,
 } from '../../../redux/selectors/selectors'
-import {urlCreatorForDropdown} from '../functions/functions'
+import {moviesActions} from '../../../redux/moviesReducer'
 
 const Dropdown = React.memo(() => {
   const isFetching = useSelector(getIsFetching)
+  const dispatch = useDispatch()
   const [isClicked, setIsClicked] = useState(false)
   const genres = useSelector(getGenresSelector)
   return !isFetching ? (
@@ -21,22 +21,22 @@ const Dropdown = React.memo(() => {
             }}
         >
           <div className={styles.dd_header_title}>
-            Search By Genre
+            Search By Genre ↓
           </div>
         </div>
         {isClicked && (
             <div className={styles.dd_list}>
               {genres.genres.map((i, idx) => (
-                  <NavLink
+                  <div
                       onClick={() => {
                         setIsClicked(false)
+                        dispatch(moviesActions.setCurrentGenre(i.id))
                       }}
                       key={idx}
-                      to={urlCreatorForDropdown(location, i.id)}
                       className={styles.link}
                   >
                     {i.name}
-                  </NavLink>
+                  </div>
               ))}
             </div>
         )}

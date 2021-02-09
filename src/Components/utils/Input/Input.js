@@ -1,27 +1,33 @@
 import React, {useState} from 'react'
+import {useHistory} from 'react-router-dom'
 import styles from './Input.module.scss'
-import {NavLink, useHistory} from 'react-router-dom'
 import icon from '../../../assets/search.svg'
 
 const Input = ({placeholder}) => {
-    let history = useHistory()
-    let [inputText, setInputText] = useState('')
-    let onInputChange = (e) => {
-        setInputText(e.target.value)
-    }
+  const [inputText, setInputText] = useState('')
+  const onInputChange = (e) => {
+    setInputText(e.target.value)
+  }
+  const history = useHistory()
 
-    return (
-        <div className={styles.inputContainer}>
-            <input value={inputText}
-                   onChange={e => onInputChange(e)}
-                   placeholder={placeholder}
-                   className={styles.input}/>
-            <NavLink to={`/search?q=${inputText}&page=1`}
-            className={styles.navLink}>
-                <img className={styles.icon} src={icon} alt=""/>
-            </NavLink>
+  return (
+      <div className={styles.inputContainer}>
+        <input
+            value={inputText}
+            onChange={(e) => onInputChange(e)}
+            placeholder={placeholder}
+            className={styles.input}
+        />
+        <div
+            onClick={() => {
+              history.push(`/search?q=${inputText}`)
+            }}
+            className={styles.navLink}
+        >
+          <img className={styles.icon} src={icon} alt=""/>
         </div>
-    )
+      </div>
+  )
 }
 
 export default Input
