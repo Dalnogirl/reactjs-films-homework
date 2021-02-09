@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import {useLocation} from 'react-router-dom'
+import {useLocation, useParams} from 'react-router-dom'
 import styles from './MovieDetailsPage.module.scss'
 import Rating from '../utils/Rating/Rating'
 import Popover from '../utils/Popover/Popover'
@@ -11,7 +11,6 @@ import {
   getMovieInfoSelector,
 } from '../../redux/selectors/selectors'
 import Loader from '../utils/Loader/Loader'
-import {urlHelpers} from '../utils/functions/functions'
 import Button from '../utils/Button/Button'
 import Modal from '../utils/Modal/Modal'
 
@@ -19,18 +18,16 @@ const MovieDetailsPage = () => {
   const dispatch = useDispatch()
   const location = useLocation()
   const isHeaderFetching = useSelector(getIsHeaderFetching)
-  const id = urlHelpers.getId(location)
+  const {id} = useParams()
+  console.log(id)
   const [isTrailerVisible, setIsTrailerVisible] = useState(false)
 
   useEffect(() => {
-    const movieId = urlHelpers.getId(location)
-    if (movieId) {
-      dispatch(getMovieInfo(movieId))
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth',
-      })
-    }
+    dispatch(getMovieInfo(id))
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    })
   }, [location])
 
   const movieInfo = useSelector(getMovieInfoSelector)

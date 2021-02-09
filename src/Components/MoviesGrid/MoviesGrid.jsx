@@ -1,43 +1,55 @@
 import React, {useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {useLocation} from 'react-router-dom'
+import Pagination from '@material-ui/lab/Pagination'
 import styles from './MoviesGrid.module.scss'
 import MovieCard from '../MovieCard/MovieCard'
-import {setGenresObj, setMovies} from '../../redux/moviesReducer'
+import {moviesActions, setGenresObj, setMovies} from '../../redux/moviesReducer'
+
 import {
+  getCurrentFilter,
+  getCurrentGenre,
+  getCurrentPage,
   getGenresSelector,
   getIsFetching,
   getMoviesSelector,
+  getTotalResults,
 } from '../../redux/selectors/selectors'
 import Loader from '../utils/Loader/Loader'
 import {urlHelpers} from '../utils/functions/functions'
-import Trigger from './Trigger/Trigger'
 
 const MoviesGrid = () => {
   const dispatch = useDispatch()
   const location = useLocation()
-  const filter = urlHelpers.getFilter(location)
-  const page = urlHelpers.getPage(location)
   const allGenres = useSelector(getGenresSelector)
   const isFetching = useSelector(getIsFetching)
-  const genre = urlHelpers.getGenre(location)
   const searchQuery = urlHelpers.getSearchQuery(location)
-
+  const page = useSelector(getCurrentPage)
+  const filter = useSelector(getCurrentFilter)
+  const currentGenre = useSelector(getCurrentGenre)
+  const totalResults = useSelector(getTotalResults)
   useEffect(() => {
-    dispatch(setMovies(location))
-    dispatch(setGenresObj())
+    if (searchQuery) {
+      dispatch(setMovies({searchQuery, page}))
+    } else if (currentGenre) {
+      dispatch(setMovies({filter, genre: currentGenre, page}))
+    } else {
+      dispatch(setMovies({filter, page}))
+    }
 
+    dispatch(setGenresObj())
     window.scrollTo({
       top: 100,
       behavior: 'smooth',
     })
-  }, [filter, page, genre, searchQuery])
+  }, [searchQuery, page, currentGenre])
 
   const list = useSelector(getMoviesSelector)
-
   return isFetching ? (
-      <Loader/>
-  ) : (
+      <div className={styles.container}>
+        <Loader/>
+      </div>
+  ) : list && list.results ? (
       <div className={styles.container}>
         <div className={styles.moviesGrid}>
           {list && list?.results.map((item) => (
@@ -53,9 +65,18 @@ const MoviesGrid = () => {
               />
           ))}
         </div>
-        <Trigger location={location}/>
+        <Pagination
+            className={styles.paginator}
+            size="large"
+            count={Math.ceil(totalResults / 20)}
+            shape="rounded"
+            page={page}
+            onChange={(e, _page) => {
+              dispatch(moviesActions.setCurrentPage(_page))
+            }}
+        />
       </div>
-  )
+  ) : null
 }
 
 export default React.memo(MoviesGrid)
