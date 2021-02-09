@@ -27,6 +27,8 @@
   },
   "homepage": "https://github.com/Dalnogirl/reactjs-films-homework#readme",
   "dependencies": {
+    "@material-ui/core": "^4.11.3",
+    "@material-ui/lab": "^4.0.0-alpha.57",
     "axios": "^0.21.1",
     "cross-env": "^7.0.3",
     "express": "^4.17.1",
