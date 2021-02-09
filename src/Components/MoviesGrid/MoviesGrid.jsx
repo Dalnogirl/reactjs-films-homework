@@ -45,13 +45,15 @@ const MoviesGrid = () => {
   }, [searchQuery, page, currentGenre])
 
   const list = useSelector(getMoviesSelector)
-  return isFetching ? (
+  return !list ? (
       <div className={styles.container}>
         <Loader/>
       </div>
-  ) : list && list.results ? (
+  ) : (
       <div className={styles.container}>
-        <div className={styles.moviesGrid}>
+        <div className={isFetching
+            ? styles.moviesGridFetching
+            : styles.moviesGrid}>
           {list && list?.results.map((item) => (
               <MovieCard
                   key={item.id}
@@ -76,7 +78,7 @@ const MoviesGrid = () => {
             }}
         />
       </div>
-  ) : null
+  )
 }
 
 export default React.memo(MoviesGrid)
