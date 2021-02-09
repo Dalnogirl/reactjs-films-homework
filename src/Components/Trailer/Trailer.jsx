@@ -1,15 +1,13 @@
-import {useLocation} from 'react-router-dom'
+import {useParams} from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
 import React, {useEffect} from 'react'
-import {urlHelpers} from '../utils/functions/functions'
 import {setTrailerKey} from '../../redux/headerReducer'
 import {getTrailerKey} from '../../redux/selectors/selectors'
 import styles from './Trailer.module.scss'
 
 const Trailer = ({callback, movieId}) => {
-  const location = useLocation()
   const dispatch = useDispatch()
-  const id = urlHelpers.getId(location) || movieId
+  const id = useParams().id || movieId
   useEffect(() => {
     dispatch(setTrailerKey(id))
   }, [id])
