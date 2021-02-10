@@ -4,8 +4,8 @@ import styles from './Dropdown.module.scss'
 import {
   getGenresSelector,
   getIsFetching,
-} from '../../../redux/selectors/selectors'
-import {moviesActions} from '../../../redux/moviesReducer'
+} from '../../redux/selectors/selectors'
+import {moviesActions} from '../../redux/moviesReducer'
 
 const Dropdown = React.memo(() => {
   const isFetching = useSelector(getIsFetching)

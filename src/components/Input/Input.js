@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import {useHistory} from 'react-router-dom'
 import styles from './Input.module.scss'
-import icon from '../../../assets/search.svg'
+import icon from '../../assets/search.svg'
 
 const Input = ({placeholder}) => {
   const [inputText, setInputText] = useState('')

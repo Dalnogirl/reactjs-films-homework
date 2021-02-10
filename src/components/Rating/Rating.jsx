@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from './Rating.module.scss'
-import star from '../../../assets/star.svg'
+import star from '../../assets/star.svg'
 
 const Rating = ({starsCount = 1}) => (
     <div className={styles.ratingContainer}>
