@@ -21,6 +21,9 @@ module.exports = {
   rules: {
     semi: [2, 'never'],
     'linebreak-style': 0,
+    'dot-location': 0,
+    'jsx-a11y/no-static-element-interactions': 0,
+    'no-unused-expressions': 0,
     'object-curly-spacing': 0,
     'react/jsx-tag-spacing': 0,
     'react/jsx-filename-extension': 0,
