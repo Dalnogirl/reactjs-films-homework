@@ -10,26 +10,26 @@ import {moviesActions} from '../../redux/moviesReducer'
 const Dropdown = React.memo(() => {
   const isFetching = useSelector(getIsFetching)
   const dispatch = useDispatch()
-  const [isClicked, setIsClicked] = useState(false)
+  const [isOpen, setIsOpened] = useState(false)
   const genres = useSelector(getGenresSelector)
-  return !isFetching ? (
+  return (
       <div className={styles.dd_wrapper}>
         <div
             className={styles.dd_header}
             onClick={() => {
-              isClicked ? setIsClicked(false) : setIsClicked(true)
+              isOpen ? setIsOpened(false) : setIsOpened(true)
             }}
         >
           <div className={styles.dd_header_title}>
             Search By Genre ↓
           </div>
         </div>
-        {isClicked && (
+        {isOpen && !isFetching && (
             <div className={styles.dd_list}>
               {genres.genres.map((i, idx) => (
                   <div
                       onClick={() => {
-                        setIsClicked(false)
+                        setIsOpened(false)
                         dispatch(moviesActions.setCurrentGenre(i.id))
                       }}
                       key={idx}
@@ -40,10 +40,6 @@ const Dropdown = React.memo(() => {
               ))}
             </div>
         )}
-      </div>
-  ) : (
-      <div className={styles.dd_header_title}>
-        Search By Genre
       </div>
   )
 })
