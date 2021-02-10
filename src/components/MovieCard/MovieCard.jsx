@@ -1,20 +1,20 @@
 import React, {useEffect, useState} from 'react'
 import {Link, useLocation} from 'react-router-dom'
 import PropTypes from 'prop-types'
+import qs from 'qs'
 import styles from './MovieCard.module.scss'
 import play from '../../assets/play (1).svg'
-import Button from '../utils/Button/Button'
-import MovieTags from '../utils/MovieTags/MovieTags'
-import Rating from '../utils/Rating/Rating'
-import {urlHelpers} from '../utils/functions/functions'
-import Modal from '../utils/Modal/Modal'
+import Button from '../Button/Button'
+import MovieTags from '../MovieTags/MovieTags'
+import Rating from '../Rating/Rating'
+import Modal from '../Modal/Modal'
 
 const MovieCard = (({
   movieName, rating, genresIds, poster, overview, id, allGenres,
 }) => {
   const [movieTitle, setMovieTitle] = useState(movieName)
   const location = useLocation()
-  const searchQuery = urlHelpers.getSearchQuery(location)
+  const searchQuery = qs.parse(location.search, {ignoreQueryPrefix: true}).q
 
   useEffect(() => {
     if (movieName.length > 14) setMovieTitle(`${movieName.slice(0, 14)}...`)

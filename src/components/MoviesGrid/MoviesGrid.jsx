@@ -2,6 +2,7 @@ import React, {useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {useLocation} from 'react-router-dom'
 import Pagination from '@material-ui/lab/Pagination'
+import qs from 'qs'
 import styles from './MoviesGrid.module.scss'
 import MovieCard from '../MovieCard/MovieCard'
 import {moviesActions, setGenresObj, setMovies} from '../../redux/moviesReducer'
@@ -15,15 +16,14 @@ import {
   getMoviesSelector,
   getTotalResults,
 } from '../../redux/selectors/selectors'
-import Loader from '../utils/Loader/Loader'
-import {urlHelpers} from '../utils/functions/functions'
+import Loader from '../Loader/Loader'
 
 const MoviesGrid = () => {
   const dispatch = useDispatch()
   const location = useLocation()
   const allGenres = useSelector(getGenresSelector)
   const isFetching = useSelector(getIsFetching)
-  const searchQuery = urlHelpers.getSearchQuery(location)
+  const searchQuery = qs.parse(location.search, {ignoreQueryPrefix: true}).q
   const page = useSelector(getCurrentPage)
   const filter = useSelector(getCurrentFilter)
   const currentGenre = useSelector(getCurrentGenre)
