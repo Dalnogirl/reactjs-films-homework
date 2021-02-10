@@ -3,7 +3,9 @@ import {useDispatch} from 'react-redux'
 import {useHistory} from 'react-router-dom'
 import styles from './Navbar.module.scss'
 import {moviesActions, setGenresObj, setMovies} from '../../redux/moviesReducer'
-import Dropdown from '../utils/Dropdown/Dropdown'
+import Dropdown from '../Dropdown/Dropdown'
+
+const linksArray = ['top_rated', 'popular', 'upcoming']
 
 const Navbar = () => {
   const dispatch = useDispatch()
@@ -15,7 +17,7 @@ const Navbar = () => {
   return (
 
       <div className={styles.navbar}>
-        {['top_rated', 'popular', 'upcoming'].map(
+        {linksArray.map(
             (item, index) => (
                 <div
                     key={index}
