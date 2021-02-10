@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import PropTypes from 'prop-types'
 import {useHistory} from 'react-router-dom'
 import styles from './Input.module.scss'
 import icon from '../../assets/search.svg'
@@ -28,6 +29,14 @@ const Input = ({placeholder}) => {
         </div>
       </div>
   )
+}
+
+Input.propTypes = {
+  placeholder: PropTypes.string,
+}
+
+Input.defaultProps = {
+  placeholder: 'Enter something',
 }
 
 export default Input
