@@ -8,7 +8,8 @@
     "dev": "cross-env node server.js",
     "build": "cross-env NODE_ENV=production webpack",
     "test": "",
-    "lint": "eslint src --ext .js,.jsx "
+    "lint": "eslint src --ext .js,.jsx ",
+    "prettier": "prettier --write src/**/*.jsx"
   },
   "husky": {
     "hooks": {
@@ -34,6 +35,7 @@
     "express": "^4.17.1",
     "node-sass": "^5.0.0",
     "nodemon": "^2.0.7",
+    "prettier": "^2.2.1",
     "prop-types": "^15.7.2",
     "qs": "^6.7.0",
     "react": "^17.0.1",
