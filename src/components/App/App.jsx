@@ -1,9 +1,7 @@
 import React from 'react'
 import {hot} from 'react-hot-loader'
 import {Provider} from 'react-redux'
-import {
-BrowserRouter, Redirect, Route, Switch,
-} from 'react-router-dom'
+import {BrowserRouter, Redirect, Route, Switch} from 'react-router-dom'
 import styles from './App.scss'
 import MovieDetailsPage from '../MovieDetailsPage/MovieDetailsPage'
 import store from '../../redux/store'
@@ -29,8 +27,8 @@ const App = () => (
       <Switch>
         <Route exact path="/" component={MainSection}/>
         <Route
-path={['/movie/:id', '/movie/:id/search?q=:q']}
-               component={MovieDetailsPage}
+            path={['/movie/:id', '/movie/:id/search?q=:q']}
+            component={MovieDetailsPage}
         />
         <Route path="/search" component={MainSection}/>
         <Route path="/404" component={() => 'Not Found'}/>

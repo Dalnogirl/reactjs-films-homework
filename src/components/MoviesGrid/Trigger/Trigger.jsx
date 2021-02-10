@@ -1,21 +1,21 @@
-import {useHistory} from 'react-router-dom'
 import React, {useEffect} from 'react'
 import useIntersection from '../../../hooks/useIntersection'
-import {debouncedUrlCreatorForPagination} from '../../utils/functions/functions'
+import {debounce} from '../../utils/functions/functions'
+import {moviesActions} from '../../../redux/moviesReducer'
+import {useDispatch} from 'react-redux'
 
-const Trigger = ({location}) => {
-  const history = useHistory()
+const Trigger = ({}) => {
   const {observerEntry, elRef} = useIntersection({
     root: null,
     threshold: 1,
     rootMargin: '30px',
   })
+  const dispatch = useDispatch()
   useEffect(() => {
     if (observerEntry.isIntersecting) {
-      const url = debouncedUrlCreatorForPagination(location)
-      if (url !== 'debounced') {
-        history.push(url)
-      }
+      console.log(observerEntry.isIntersecting)
+      dispatch(moviesActions.incrementCurrentPage())
+
     }
   }, [observerEntry.isIntersecting])
 
@@ -25,5 +25,7 @@ const Trigger = ({location}) => {
       </div>
   )
 }
+
+
 
 export default Trigger

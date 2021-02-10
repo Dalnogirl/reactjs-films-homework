@@ -53,7 +53,8 @@ const MoviesGrid = () => {
       <div className={styles.container}>
         <div className={isFetching
             ? styles.moviesGridFetching
-            : styles.moviesGrid}>
+            : styles.moviesGrid}
+        >
           {list && list?.results.map((item) => (
               <MovieCard
                   key={item.id}
