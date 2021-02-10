@@ -1,13 +1,10 @@
 import React from 'react'
-import {hot} from 'react-hot-loader'
-import {Provider} from 'react-redux'
-import {BrowserRouter, Redirect, Route, Switch} from 'react-router-dom'
+import {Redirect, Route, Switch} from 'react-router-dom'
 import styles from './App.scss'
 import MovieDetailsPage from '../MovieDetailsPage/MovieDetailsPage'
-import store from '../../redux/store'
 import MoviesGrid from '../MoviesGrid/MoviesGrid'
 import Navbar from '../Navbar/Navbar'
-import Input from '../utils/Input/Input'
+import Input from '../Input/Input'
 
 const MainSection = () => (
     <main className={styles.main}>
@@ -38,13 +35,4 @@ const App = () => (
     </div>
 )
 
-const AppContainer = () => (
-    <Provider store={store}>
-      <BrowserRouter>
-        <App/>
-      </BrowserRouter>
-    </Provider>
-
-)
-
-export default hot(module)(AppContainer)
+export default App
