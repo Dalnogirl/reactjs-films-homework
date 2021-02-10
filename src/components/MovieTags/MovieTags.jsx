@@ -30,13 +30,20 @@ const MovieTags = (({genresNames, genresIds, allGenres}) => {
 })
 
 MovieTags.propTypes = {
-  genresNames: PropTypes.arrayOf(PropTypes.string).isRequired,
-  genresIds: PropTypes.arrayOf(PropTypes.number).isRequired,
+  genresNames: PropTypes.arrayOf(PropTypes.shape(
+      {id: PropTypes.number, name: PropTypes.string},
+  )),
+  genresIds: PropTypes.arrayOf(PropTypes.number),
   allGenres: PropTypes.shape({
     genres: PropTypes.arrayOf(PropTypes.shape(
         {id: PropTypes.number, name: PropTypes.string},
     )),
-  }).isRequired,
+  }),
 }
 
+MovieTags.defaultProps = {
+  genresNames: null,
+  allGenres: null,
+  genresIds: null,
+}
 export default React.memo(MovieTags)
