@@ -21,7 +21,7 @@ const Dropdown = React.memo(() => {
             }}
         >
           <div className={styles.dd_header_title}>
-            Search By Genre ↓
+            Search By Genre ▼
           </div>
         </div>
         {isOpen && !isFetching && (
