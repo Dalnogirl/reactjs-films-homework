@@ -1,9 +1,9 @@
 import React, {useEffect} from 'react'
 import {useDispatch} from 'react-redux'
+import {useHistory} from 'react-router-dom'
 import styles from './Navbar.module.scss'
 import {moviesActions, setGenresObj, setMovies} from '../../redux/moviesReducer'
 import Dropdown from '../utils/Dropdown/Dropdown'
-import {useHistory} from 'react-router-dom'
 
 const Navbar = () => {
   const dispatch = useDispatch()
@@ -27,7 +27,9 @@ const Navbar = () => {
                     }}
                 >
                   {item[0].toUpperCase() + item.replace('_', ' ').slice(1)}
-                </div>))}
+                </div>
+            ),
+        )}
         <Dropdown/>
       </div>
   )
