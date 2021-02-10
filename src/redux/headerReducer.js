@@ -1,14 +1,14 @@
 import {headerAPI} from '../dal/dal'
 
-const GET_MOVIE_INFO = 'GET_MOVIE_INFO'
-const SET_IS_HEADER_FETCHING = 'SET_IS_HEADER_FETCHING'
-const SET_TRAILER_KEY = 'SET_TRAILER_KEY'
+const GET_MOVIE_INFO = 'headerReducer/GET_MOVIE_INFO'
+const SET_IS_HEADER_FETCHING = 'headerReducer/SET_IS_HEADER_FETCHING'
+const SET_TRAILER_KEY = 'headerReducer/SET_TRAILER_KEY'
 const initialState = {
   isHeaderFetching: false,
   trailerKey: null,
 }
 
-function headerReducer(state = initialState, action) {
+const headerReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_MOVIE_INFO: {
       return {
@@ -53,7 +53,7 @@ export const setTrailerKey = (movieId) => async (dispatch) => {
     key = await headerAPI.getTrailerKey(movieId)
     key = key.results[0].key
   } catch (e) {
-    console.log(e)
+    console.warn(e)
   }
   dispatch(headerActions.setTrailerKey(key))
 }

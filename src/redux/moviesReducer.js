@@ -1,13 +1,13 @@
 import {moviesApi} from '../dal/dal'
 
-const SET_MOVIES = 'SET_MOVIES'
-const SET_GENRES_OBJ = 'SET_GENRES_OBJ'
-const SET_IS_FETCHING = 'SET_IS_FETCHING'
-const INCREMENT_CURRENT_PAGE = 'INCREMENT_CURRENT_PAGE'
-const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
-const SET_CURRENT_GENRE = 'SET_CURRENT_GENRE'
-const SET_CURRENT_FILTER = 'SET_CURRENT_FILTER'
-const SET_TOTAL_RESULTS = 'SET_TOTAL_RESULTS'
+const SET_MOVIES = 'moviesReducer/SET_MOVIES'
+const SET_GENRES_OBJ = 'moviesReducer/SET_GENRES_OBJ'
+const SET_IS_FETCHING = 'moviesReducer/SET_IS_FETCHING'
+const INCREMENT_CURRENT_PAGE = 'moviesReducer/INCREMENT_CURRENT_PAGE'
+const SET_CURRENT_PAGE = 'moviesReducer/SET_CURRENT_PAGE'
+const SET_CURRENT_GENRE = 'moviesReducer/SET_CURRENT_GENRE'
+const SET_CURRENT_FILTER = 'moviesReducer/SET_CURRENT_FILTER'
+const SET_TOTAL_RESULTS = 'moviesReducer/SET_TOTAL_RESULTS'
 
 const initialState = {
   isFetching: false,
@@ -19,7 +19,7 @@ const initialState = {
   totalResults: null,
 }
 
-function moviesReducer(state = initialState, action) {
+const moviesReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_MOVIES: {
       return {
@@ -91,10 +91,10 @@ export const moviesActions = {
   setGenresObj: (data) => ({type: SET_GENRES_OBJ, data}),
   setMovies: (data) => ({type: SET_MOVIES, data}),
   setIsFetching: (data) => ({type: SET_IS_FETCHING, data}),
-  setCurrentFilter: data => ({type: SET_CURRENT_FILTER, data}),
-  setCurrentPage: data => ({type: SET_CURRENT_PAGE, data}),
-  setCurrentGenre: data => ({type: SET_CURRENT_GENRE, data}),
-  setTotalResults: data => ({type: SET_TOTAL_RESULTS, data}),
+  setCurrentFilter: (data) => ({type: SET_CURRENT_FILTER, data}),
+  setCurrentPage: (data) => ({type: SET_CURRENT_PAGE, data}),
+  setCurrentGenre: (data) => ({type: SET_CURRENT_GENRE, data}),
+  setTotalResults: (data) => ({type: SET_TOTAL_RESULTS, data}),
   incrementCurrentPage: () => ({type: INCREMENT_CURRENT_PAGE}),
 }
 
