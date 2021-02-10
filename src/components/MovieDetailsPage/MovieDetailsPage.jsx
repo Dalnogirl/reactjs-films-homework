@@ -2,17 +2,17 @@ import React, {useEffect, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {useLocation, useParams} from 'react-router-dom'
 import styles from './MovieDetailsPage.module.scss'
-import Rating from '../utils/Rating/Rating'
-import Popover from '../utils/Popover/Popover'
-import MovieTags from '../utils/MovieTags/MovieTags'
+import Rating from '../Rating/Rating'
+import Popover from '../Popover/Popover'
+import MovieTags from '../MovieTags/MovieTags'
 import {getMovieInfo} from '../../redux/headerReducer'
 import {
   getIsHeaderFetching,
   getMovieInfoSelector,
 } from '../../redux/selectors/selectors'
-import Loader from '../utils/Loader/Loader'
-import Button from '../utils/Button/Button'
-import Modal from '../utils/Modal/Modal'
+import Loader from '../Loader/Loader'
+import Button from '../Button/Button'
+import Modal from '../Modal/Modal'
 
 const MovieDetailsPage = () => {
   const dispatch = useDispatch()
