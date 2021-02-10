@@ -1,4 +1,4 @@
-import {moviesApi} from '../dal/dal'
+import { moviesApi } from '../dal/dal'
 
 const SET_MOVIES = 'moviesReducer/SET_MOVIES'
 const SET_GENRES_OBJ = 'moviesReducer/SET_GENRES_OBJ'
@@ -24,13 +24,13 @@ const moviesReducer = (state = initialState, action) => {
     case SET_MOVIES: {
       return {
         ...state,
-        moviesList: {...action.data},
+        moviesList: { ...action.data },
       }
     }
     case SET_GENRES_OBJ: {
       return {
         ...state,
-        genresObj: {...action.data},
+        genresObj: { ...action.data },
       }
     }
     case SET_IS_FETCHING: {
@@ -75,9 +75,7 @@ const moviesReducer = (state = initialState, action) => {
   }
 }
 
-const urlCreatorForAJAX = ({
-  genre, filter, page = 1, searchQuery,
-}) => {
+const urlCreatorForAJAX = ({ genre, filter, page = 1, searchQuery }) => {
   if (searchQuery) {
     return `/search/movie?api_key=0d62501dce3049a65b9d183d8e927cfa&query=${searchQuery}&page=${page}`
   }
@@ -88,19 +86,18 @@ const urlCreatorForAJAX = ({
 }
 
 export const moviesActions = {
-  setGenresObj: (data) => ({type: SET_GENRES_OBJ, data}),
-  setMovies: (data) => ({type: SET_MOVIES, data}),
-  setIsFetching: (data) => ({type: SET_IS_FETCHING, data}),
-  setCurrentFilter: (data) => ({type: SET_CURRENT_FILTER, data}),
-  setCurrentPage: (data) => ({type: SET_CURRENT_PAGE, data}),
-  setCurrentGenre: (data) => ({type: SET_CURRENT_GENRE, data}),
-  setTotalResults: (data) => ({type: SET_TOTAL_RESULTS, data}),
-  incrementCurrentPage: () => ({type: INCREMENT_CURRENT_PAGE}),
+  setGenresObj: (data) => ({ type: SET_GENRES_OBJ, data }),
+  setMovies: (data) => ({ type: SET_MOVIES, data }),
+  setIsFetching: (data) => ({ type: SET_IS_FETCHING, data }),
+  setCurrentFilter: (data) => ({ type: SET_CURRENT_FILTER, data }),
+  setCurrentPage: (data) => ({ type: SET_CURRENT_PAGE, data }),
+  setCurrentGenre: (data) => ({ type: SET_CURRENT_GENRE, data }),
+  setTotalResults: (data) => ({ type: SET_TOTAL_RESULTS, data }),
+  incrementCurrentPage: () => ({ type: INCREMENT_CURRENT_PAGE }),
 }
 
 export const setGenresObj = () => (dispatch) => {
-  moviesApi.getGenresObj().
-      then((data) => dispatch(moviesActions.setGenresObj(data)))
+  moviesApi.getGenresObj().then((data) => dispatch(moviesActions.setGenresObj(data)))
 }
 
 export const setMovies = (props) => async (dispatch) => {

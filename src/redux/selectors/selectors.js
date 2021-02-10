@@ -1,4 +1,4 @@
-import {createSelector} from 'reselect'
+import { createSelector } from 'reselect'
 
 export const getMovieInfoSelector = (state) => state.headerData.movieInfo
 export const getMoviesSelector = (state) => state.moviesData.moviesList
@@ -11,5 +11,4 @@ export const getCurrentPage = (state) => state.moviesData.currentPage
 export const getCurrentGenre = (state) => state.moviesData.currentGenre
 export const getTotalResults = (state) => state.moviesData.totalResults
 
-export const getGenresNames = createSelector(getGenresSelector,
-    (genresArray) => genresArray.map((i) => i.name))
+export const getGenresNames = createSelector(getGenresSelector, (genresArray) => genresArray.map((i) => i.name))

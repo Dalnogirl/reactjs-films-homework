@@ -1,4 +1,4 @@
-import {headerAPI} from '../dal/dal'
+import { headerAPI } from '../dal/dal'
 
 const GET_MOVIE_INFO = 'headerReducer/GET_MOVIE_INFO'
 const SET_IS_HEADER_FETCHING = 'headerReducer/SET_IS_HEADER_FETCHING'
@@ -25,7 +25,7 @@ const headerReducer = (state = initialState, action) => {
     case SET_TRAILER_KEY: {
       return {
         ...state,
-        trailerKey: action.data,
+        trailerKey: action.datall,
       }
     }
     default:
@@ -34,10 +34,9 @@ const headerReducer = (state = initialState, action) => {
 }
 
 const headerActions = {
-  getMovieInfo: (data) => ({type: GET_MOVIE_INFO, data}),
-  setIsHeaderFetching: (data) => ({type: SET_IS_HEADER_FETCHING, data}),
-  setTrailerKey: (data) => ({type: SET_TRAILER_KEY, data}),
-
+  getMovieInfo: (data) => ({ type: GET_MOVIE_INFO, data }),
+  setIsHeaderFetching: (data) => ({ type: SET_IS_HEADER_FETCHING, data }),
+  setTrailerKey: (data) => ({ type: SET_TRAILER_KEY, data }),
 }
 
 export const getMovieInfo = (movieId) => async (dispatch) => {

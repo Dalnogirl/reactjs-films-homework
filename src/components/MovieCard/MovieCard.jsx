@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react'
-import {Link, useLocation} from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import qs from 'qs'
 import styles from './MovieCard.module.scss'
@@ -9,12 +9,10 @@ import MovieTags from '../MovieTags/MovieTags'
 import Rating from '../Rating/Rating'
 import Modal from '../Modal/Modal'
 
-const MovieCard = (({
-  movieName, rating, genresIds, poster, overview, id, allGenres,
-}) => {
+const MovieCard = ({ movieName, rating, genresIds, poster, overview, id, allGenres }) => {
   const [movieTitle, setMovieTitle] = useState(movieName)
   const location = useLocation()
-  const searchQuery = qs.parse(location.search, {ignoreQueryPrefix: true}).q
+  const searchQuery = qs.parse(location.search, { ignoreQueryPrefix: true }).q
 
   useEffect(() => {
     if (movieName.length > 14) setMovieTitle(`${movieName.slice(0, 14)}...`)
@@ -24,73 +22,45 @@ const MovieCard = (({
   const [isTrailerVisible, setIsTrailerVisible] = useState(false)
 
   return (
-      <div className={styles.cardContainer}>
-        <div className={styles.card}>
+    <div className={styles.cardContainer}>
+      <div className={styles.card}>
+        <div className={styles.poster} style={{ backgroundImage: `url(https://image.tmdb.org/t/p/original${poster})` }}>
           <div
-              className={styles.poster}
-              style={{backgroundImage: `url(https://image.tmdb.org/t/p/original${poster})`}}
+            onMouseLeave={() => {
+              setInfoMode(false)
+            }}
+            className={styles.hoverInfo}
           >
-            <div
-                onMouseLeave={() => { setInfoMode(false) }}
-                className={styles.hoverInfo}
-            >
-              {infoMode
-                  ? (
-                      <div className={styles.overview}>
-                        {overview}
-                      </div>
-                  )
-                  : (
-                      <div>
-                        <div
-                            role="button"
-                            onClick={() => { setIsTrailerVisible(true) }}
-                        >
-                          <img
-                              src={play}
-                              alt=""
-                              className={styles.playButton}
-                          />
-                        </div>
-                        {
-                          isTrailerVisible
-                          && (
-                              <Modal
-                                  callback={setIsTrailerVisible}
-                                  movieId={id}
-                              />
-                          )
-                        }
-                        <Button onClick={() => setInfoMode(true)}>
-                          View Info
-                        </Button>
-                      </div>
-                  )}
-
-            </div>
-          </div>
-
-          <Link
-              to={searchQuery
-                  ? `/movie/${id}/search?q=${searchQuery}`
-                  : `/movie/${id}`}
-              className={styles.footer}
-          >
-            <div className={styles.nameAndRating}>
-              <div className={styles.name}>
-                {movieTitle}
+            {infoMode ? (
+              <div className={styles.overview}>{overview}</div>
+            ) : (
+              <div>
+                <div
+                  role="button"
+                  onClick={() => {
+                    setIsTrailerVisible(true)
+                  }}
+                >
+                  <img src={play} alt="" className={styles.playButton} />
+                </div>
+                {isTrailerVisible && <Modal callback={setIsTrailerVisible} movieId={id} />}
+                <Button onClick={() => setInfoMode(true)}>View Info</Button>
               </div>
-              <Rating starsCount={rating}/>
-            </div>
-            <MovieTags
-                allGenres={allGenres}
-                genresIds={genresIds}
-            />
-          </Link>
+            )}
+          </div>
         </div>
+
+        <Link to={searchQuery ? `/movie/${id}/search?q=${searchQuery}` : `/movie/${id}`} className={styles.footer}>
+          <div className={styles.nameAndRating}>
+            <div className={styles.name}>{movieTitle}</div>
+            <Rating starsCount={rating} />
+          </div>
+          <MovieTags allGenres={allGenres} genresIds={genresIds} />
+        </Link>
       </div>
+    </div>
   )
-})
+}
 
 MovieCard.propTypes = {
   movieName: PropTypes.string.isRequired,
@@ -100,9 +70,7 @@ MovieCard.propTypes = {
   overview: PropTypes.string.isRequired,
   id: PropTypes.number.isRequired,
   allGenres: PropTypes.shape({
-    genres: PropTypes.arrayOf(PropTypes.shape(
-        {id: PropTypes.number, name: PropTypes.string},
-    )),
+    genres: PropTypes.arrayOf(PropTypes.shape({ id: PropTypes.number, name: PropTypes.string })),
   }).isRequired,
 }
 
