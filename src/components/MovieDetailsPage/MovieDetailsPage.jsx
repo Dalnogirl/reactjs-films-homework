@@ -19,7 +19,6 @@ const MovieDetailsPage = () => {
   const location = useLocation()
   const isHeaderFetching = useSelector(getIsHeaderFetching)
   const {id} = useParams()
-  console.log(id)
   const [isTrailerVisible, setIsTrailerVisible] = useState(false)
 
   useEffect(() => {
@@ -32,38 +31,37 @@ const MovieDetailsPage = () => {
 
   const movieInfo = useSelector(getMovieInfoSelector)
 
-  return id ? !isHeaderFetching && movieInfo ? (
-          <div
-              className={styles.container}
-              style={{backgroundImage: `url(https://image.tmdb.org/t/p/original${movieInfo.backdrop_path})`}}
-          >
-            <main className={styles.main}>
-              <div className={styles.mainInfoWrapper}>
-                <p className={styles.movieName}>
-                  {movieInfo.title}
-                </p>
-                <div className={styles.movieTagContainer}>
-                  <MovieTags genresNames={movieInfo.genres}/>
-                </div>
-                <Rating starsCount={movieInfo.vote_average / 2}/>
-              </div>
-              <div className={styles.controls}>
-                <Button onClick={() => {
-                  setIsTrailerVisible(true)
-                }}
-                >
-                  Watch Trailer
-                </Button>
-                {isTrailerVisible && <Modal callback={setIsTrailerVisible}/>}
-                <Popover width={70} text="Info">
-                  {movieInfo.overview}
-                </Popover>
-              </div>
-
-            </main>
+  return id && !isHeaderFetching && movieInfo ? (
+      <div
+          className={styles.container}
+          style={{backgroundImage: `url(https://image.tmdb.org/t/p/original${movieInfo.backdrop_path})`}}
+      >
+        <main className={styles.main}>
+          <div className={styles.mainInfoWrapper}>
+            <p className={styles.movieName}>
+              {movieInfo.title}
+            </p>
+            <div className={styles.movieTagContainer}>
+              <MovieTags genresNames={movieInfo.genres}/>
+            </div>
+            <Rating starsCount={movieInfo.vote_average / 2}/>
           </div>
-      ) : <div className={styles.container}><Loader/></div>
-      : null
+          <div className={styles.controls}>
+            <Button onClick={() => {
+              setIsTrailerVisible(true)
+            }}
+            >
+              Watch Trailer
+            </Button>
+            {isTrailerVisible && <Modal callback={setIsTrailerVisible}/>}
+            <Popover width={70} text="Info">
+              {movieInfo.overview}
+            </Popover>
+          </div>
+
+        </main>
+      </div>
+  ) : <div className={styles.container}><Loader/></div>
 }
 
 export default MovieDetailsPage
