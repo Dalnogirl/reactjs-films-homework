@@ -52,6 +52,7 @@ const moviesReducer = (state = initialState, action) => {
       }
     }
     case SET_CURRENT_FILTER: {
+      debugger
       return {
         ...state,
         currentFilter: action.data,
@@ -97,13 +98,14 @@ export const moviesActions = {
 }
 
 export const setGenresObj = () => (dispatch) => {
-  moviesApi.getGenresObj().then((data) => dispatch(moviesActions.setGenresObj(data)))
+  moviesApi.getGenresObj().
+    then((data) => dispatch(moviesActions.setGenresObj(data)))
 }
 
 export const setMovies = (props) => async (dispatch) => {
   dispatch(moviesActions.setIsFetching(true))
   const data = await moviesApi.getMovies(urlCreatorForAJAX(props))
-  props.filter && moviesActions.setCurrentFilter(props.filter)
+  props.filter && dispatch(moviesActions.setCurrentFilter(props.filter))
   dispatch(moviesActions.setMovies(data))
   dispatch(moviesActions.setTotalResults(data.total_results))
   dispatch(moviesActions.setIsFetching(false))
