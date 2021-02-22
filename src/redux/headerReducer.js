@@ -25,7 +25,7 @@ const headerReducer = (state = initialState, action) => {
     case SET_TRAILER_KEY: {
       return {
         ...state,
-        trailerKey: action.datall,
+        trailerKey: action.data,
       }
     }
     default:
@@ -33,7 +33,7 @@ const headerReducer = (state = initialState, action) => {
   }
 }
 
-const headerActions = {
+export const headerActions = {
   getMovieInfo: (data) => ({ type: GET_MOVIE_INFO, data }),
   setIsHeaderFetching: (data) => ({ type: SET_IS_HEADER_FETCHING, data }),
   setTrailerKey: (data) => ({ type: SET_TRAILER_KEY, data }),
@@ -54,6 +54,7 @@ export const setTrailerKey = (movieId) => async (dispatch) => {
   } catch (e) {
     console.warn(e)
   }
+  console.log(key)
   dispatch(headerActions.setTrailerKey(key))
 }
 
