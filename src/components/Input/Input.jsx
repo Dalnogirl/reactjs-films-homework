@@ -13,14 +13,24 @@ const Input = ({ placeholder }) => {
 
   return (
     <div className={styles.inputContainer}>
-      <input value={inputText} onChange={(e) => onInputChange(e)} placeholder={placeholder} className={styles.input} />
+      <input value={inputText}
+             onChange={(e) => onInputChange(e)}
+             placeholder={placeholder}
+             className={styles.input}
+             data-testid='searchInput'
+      />
       <div
         onClick={() => {
           history.push(`/search?q=${inputText}`)
         }}
         className={styles.navLink}
+        data-testid='searchButton'
       >
-        <img className={styles.icon} src={icon} alt="" />
+        <img className={styles.icon}
+             src={icon}
+             alt="Search button"
+
+        />
       </div>
     </div>
   )

@@ -12,6 +12,7 @@ const Dropdown = React.memo(() => {
   return (
     <div className={styles.dd_wrapper}>
       <div
+        data-testid='ddHeader'
         className={styles.dd_header}
         onClick={() => {
           isOpen ? setIsOpened(false) : setIsOpened(true)

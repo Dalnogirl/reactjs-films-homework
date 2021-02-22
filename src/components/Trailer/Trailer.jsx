@@ -9,15 +9,18 @@ import styles from './Trailer.module.scss'
 const Trailer = ({ callback, movieId }) => {
   const dispatch = useDispatch()
   const id = useParams().id || movieId
+
   useEffect(() => {
     dispatch(setTrailerKey(id))
   }, [id])
-  const trailerKey = useSelector(getTrailerKey)
 
+  const trailerKey = useSelector(getTrailerKey)
   return (
-    <div className={styles.iframeContainer} onClick={() => callback(false)}>
+    <div className={styles.iframeContainer} onClick={() => callback(false)}
+         data-testid="iframeContainer">
       {trailerKey ? (
         <iframe
+          data-testid="iframe"
           title="trailer"
           src={`https://www.youtube.com/embed/${trailerKey}`}
           frameBorder="0"

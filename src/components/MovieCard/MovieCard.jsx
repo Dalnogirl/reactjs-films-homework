@@ -22,10 +22,12 @@ const MovieCard = ({ movieName, rating, genresIds, poster, overview, id, allGenr
   const [isTrailerVisible, setIsTrailerVisible] = useState(false)
 
   return (
-    <div className={styles.cardContainer}>
+    <div className={styles.cardContainer} data-testid="movieCard">
       <div className={styles.card}>
-        <div className={styles.poster} style={{ backgroundImage: `url(https://image.tmdb.org/t/p/original${poster})` }}>
+        <div className={styles.poster}
+             style={{ backgroundImage: `url(https://image.tmdb.org/t/p/original${poster})` }}>
           <div
+            data-testid='posterContainer'
             onMouseLeave={() => {
               setInfoMode(false)
             }}
@@ -36,22 +38,31 @@ const MovieCard = ({ movieName, rating, genresIds, poster, overview, id, allGenr
             ) : (
               <div>
                 <div
-                  role="button"
                   onClick={() => {
                     setIsTrailerVisible(true)
                   }}
+                  data-testid="trailerButton"
                 >
-                  <img src={play} alt="" className={styles.playButton} />
+                  <img src={play} alt="cardPoster"
+                       className={styles.playButton} />
                 </div>
-                {isTrailerVisible && <Modal callback={setIsTrailerVisible} movieId={id} />}
+                {isTrailerVisible &&
+                <Modal callback={setIsTrailerVisible} movieId={id} />}
                 <Button onClick={() => setInfoMode(true)}>View Info</Button>
               </div>
             )}
           </div>
         </div>
 
-        <Link to={searchQuery ? `/movie/${id}/search?q=${searchQuery}` : `/movie/${id}`} className={styles.footer}>
-          <div className={styles.nameAndRating}>
+        <Link
+          to={searchQuery
+            ? `/movie/${id}/search?q=${searchQuery}`
+            : `/movie/${id}`}
+          className={styles.footer}
+          data-testid="movieLink"
+        >
+          <div className={styles.nameAndRating}
+               data-testid="nameAndRatingContainer">
             <div className={styles.name}>{movieTitle}</div>
             <Rating starsCount={rating} />
           </div>
@@ -70,7 +81,8 @@ MovieCard.propTypes = {
   overview: PropTypes.string.isRequired,
   id: PropTypes.number.isRequired,
   allGenres: PropTypes.shape({
-    genres: PropTypes.arrayOf(PropTypes.shape({ id: PropTypes.number, name: PropTypes.string })),
+    genres: PropTypes.arrayOf(
+      PropTypes.shape({ id: PropTypes.number, name: PropTypes.string })),
   }).isRequired,
 }
 

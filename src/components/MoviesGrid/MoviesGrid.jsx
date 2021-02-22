@@ -5,7 +5,11 @@ import Pagination from '@material-ui/lab/Pagination'
 import qs from 'qs'
 import styles from './MoviesGrid.module.scss'
 import MovieCard from '../MovieCard/MovieCard'
-import { moviesActions, setGenresObj, setMovies } from '../../redux/moviesReducer'
+import {
+  moviesActions,
+  setGenresObj,
+  setMovies
+} from '../../redux/moviesReducer'
 
 import {
   getCurrentFilter,
@@ -36,7 +40,6 @@ const MoviesGrid = () => {
     } else {
       dispatch(setMovies({ filter, page }))
     }
-
     dispatch(setGenresObj())
     window.scrollTo({
       top: 100,
@@ -51,23 +54,25 @@ const MoviesGrid = () => {
     </div>
   ) : (
     <div className={styles.container}>
-      <div className={isFetching ? styles.moviesGridFetching : styles.moviesGrid}>
+      <div
+        className={isFetching ? styles.moviesGridFetching : styles.moviesGrid}>
         {list &&
-          list?.results.map((item) => (
-            <MovieCard
-              key={item.id}
-              id={item.id}
-              movieName={item.title}
-              genresIds={item.genre_ids}
-              poster={item.poster_path}
-              rating={item.vote_average / 2}
-              overview={item.overview}
-              allGenres={allGenres}
-            />
-          ))}
+        list?.results.map((item) => (
+          <MovieCard
+            key={item.id}
+            id={item.id}
+            movieName={item.title}
+            genresIds={item.genre_ids}
+            poster={item.poster_path}
+            rating={item.vote_average / 2}
+            overview={item.overview}
+            allGenres={allGenres}
+          />
+        ))}
       </div>
       <Pagination
         className={styles.paginator}
+        data-testid='pagination'
         size="large"
         count={Math.ceil(totalResults / 20)}
         shape="rounded"

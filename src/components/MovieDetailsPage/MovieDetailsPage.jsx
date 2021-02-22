@@ -6,7 +6,10 @@ import Rating from '../Rating/Rating'
 import Popover from '../Popover/Popover'
 import MovieTags from '../MovieTags/MovieTags'
 import { getMovieInfo } from '../../redux/headerReducer'
-import { getIsHeaderFetching, getMovieInfoSelector } from '../../redux/selectors/selectors'
+import {
+  getIsHeaderFetching,
+  getMovieInfoSelector
+} from '../../redux/selectors/selectors'
 import Loader from '../Loader/Loader'
 import Button from '../Button/Button'
 import Modal from '../Modal/Modal'
@@ -43,13 +46,16 @@ const MovieDetailsPage = () => {
         </div>
         <div className={styles.controls}>
           <Button
+            data-testid='watchTrailerButton'
             onClick={() => {
               setIsTrailerVisible(true)
             }}
           >
             Watch Trailer
           </Button>
-          {isTrailerVisible && <Modal callback={setIsTrailerVisible} />}
+          {isTrailerVisible && <Modal movieId={+id}
+                                      data-testid="modal"
+                                      callback={setIsTrailerVisible} />}
           <Popover width={70} text="Info">
             {movieInfo.overview}
           </Popover>
