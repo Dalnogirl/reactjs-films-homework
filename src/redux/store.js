@@ -4,7 +4,7 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 import headerReducer from './headerReducer'
 import moviesReducer from './moviesReducer'
 
-const rootReducer = combineReducers({
+export const rootReducer = combineReducers({
   headerData: headerReducer,
   moviesData: moviesReducer,
 })
