@@ -1,11 +1,10 @@
 import { moviesApi } from '../dal/dal'
 
-const SET_MOVIES = 'moviesReducer/SET_MOVIES'
+export const SET_MOVIES = 'moviesReducer/SET_MOVIES'
 const SET_GENRES_OBJ = 'moviesReducer/SET_GENRES_OBJ'
-const SET_IS_FETCHING = 'moviesReducer/SET_IS_FETCHING'
-const INCREMENT_CURRENT_PAGE = 'moviesReducer/INCREMENT_CURRENT_PAGE'
+export const SET_IS_FETCHING = 'moviesReducer/SET_IS_FETCHING'
 const SET_CURRENT_PAGE = 'moviesReducer/SET_CURRENT_PAGE'
-const SET_CURRENT_GENRE = 'moviesReducer/SET_CURRENT_GENRE'
+export const SET_CURRENT_GENRE = 'moviesReducer/SET_CURRENT_GENRE'
 const SET_CURRENT_FILTER = 'moviesReducer/SET_CURRENT_FILTER'
 const SET_TOTAL_RESULTS = 'moviesReducer/SET_TOTAL_RESULTS'
 
@@ -45,14 +44,7 @@ const moviesReducer = (state = initialState, action) => {
         currentPage: action.data,
       }
     }
-    case INCREMENT_CURRENT_PAGE: {
-      return {
-        ...state,
-        currentPage: state.currentPage + 1,
-      }
-    }
     case SET_CURRENT_FILTER: {
-      debugger
       return {
         ...state,
         currentFilter: action.data,
@@ -76,7 +68,9 @@ const moviesReducer = (state = initialState, action) => {
   }
 }
 
-const urlCreatorForAJAX = ({ genre, filter, page = 1, searchQuery }) => {
+const urlCreatorForAJAX = ({
+ genre, filter, page = 1, searchQuery,
+}) => {
   if (searchQuery) {
     return `/search/movie?api_key=0d62501dce3049a65b9d183d8e927cfa&query=${searchQuery}&page=${page}`
   }
@@ -94,12 +88,10 @@ export const moviesActions = {
   setCurrentPage: (data) => ({ type: SET_CURRENT_PAGE, data }),
   setCurrentGenre: (data) => ({ type: SET_CURRENT_GENRE, data }),
   setTotalResults: (data) => ({ type: SET_TOTAL_RESULTS, data }),
-  incrementCurrentPage: () => ({ type: INCREMENT_CURRENT_PAGE }),
 }
 
 export const setGenresObj = () => (dispatch) => {
-  moviesApi.getGenresObj().
-    then((data) => dispatch(moviesActions.setGenresObj(data)))
+  moviesApi.getGenresObj().then((data) => dispatch(moviesActions.setGenresObj(data)))
 }
 
 export const setMovies = (props) => async (dispatch) => {
