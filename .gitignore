@@ -3,6 +3,8 @@
 .dist/
 node_modules/
 build
+/coverage.data
+/coverage
 .DS_Store
 *.tgz
 my-app*

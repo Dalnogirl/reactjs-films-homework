@@ -1,0 +1,9 @@
+.ratingContainer {
+  display: flex;
+  align-items: center;
+
+  .starsCount {
+    font-size: 15px;
+    margin-left: 10px;
+  }
+}

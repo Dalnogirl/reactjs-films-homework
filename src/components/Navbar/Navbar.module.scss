@@ -1,0 +1,26 @@
+.navbar {
+  height: 50px;
+  width: 100%;
+  display: flex;
+  position: relative;
+  z-index: 2;
+  align-items: center;
+  background-color: #393838;
+  color: white;
+  justify-content: space-around;
+  font-size: 20px;
+
+  .navLink {
+    color: white;
+    text-decoration: none;
+    font-size: 25px;
+    cursor: pointer;
+  }
+
+  .selected {
+    color: #48cfad;
+    font-weight: bold;
+    transform: scale(1.2);
+    text-decoration: none;
+  }
+}
