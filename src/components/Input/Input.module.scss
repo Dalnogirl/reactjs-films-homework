@@ -1,0 +1,27 @@
+.inputContainer {
+  display: flex;
+  border: 1px solid green;
+  border-radius: 5px;
+  background-color: white;
+
+  .icon {
+    width: 20px;
+    padding: 5px;
+    cursor: pointer;
+  }
+}
+.navLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.input {
+  font-size: 15px;
+  flex-grow:2;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  transition: all 0.3s;
+}
