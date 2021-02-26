@@ -8,4 +8,4 @@ export const getTrailerKey = (state) => state.headerData.trailerKey
 export const getCurrentPage = (state) => state.moviesData.currentPage
 export const getCurrentGenre = (state) => state.moviesData.currentGenre
 export const getTotalResults = (state) => state.moviesData.totalResults
-
+export const getErrorMessage = (state) => state.appData.errorMessage
