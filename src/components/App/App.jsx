@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Redirect, Route, Switch } from 'react-router-dom'
 import styles from './App.scss'
 import MovieDetailsPage from '../MovieDetailsPage/MovieDetailsPage'
@@ -7,7 +7,8 @@ import Navbar from '../Navbar/Navbar'
 import Input from '../Input/Input'
 import { useSelector } from 'react-redux'
 import { getErrorMessage } from '../../redux/selectors/selectors'
-import AlertDialogSlide from '../ErrorAlert/ErrorAlert'
+import Snackbar from '@material-ui/core/Snackbar'
+import Alert from '@material-ui/lab/Alert'
 
 const MainSection = () => (
   <main className={styles.main}>
@@ -18,9 +19,30 @@ const MainSection = () => (
 
 const App = () => {
   const errorMessage = useSelector(getErrorMessage)
+  useEffect(() => {
+    if (errorMessage) {
+      setOpen(true)
+    }
+  }, [errorMessage])
+
+  const [open, setOpen] = React.useState(false)
+  const handleClose = (e, reason) => {
+    if (reason === 'clickaway') {
+      return
+    }
+
+    setOpen(false)
+  }
+
   return (
     <div className={styles.app}>
-      {errorMessage && <AlertDialogSlide />}
+      {errorMessage && (
+        <Snackbar open={open} onClose={handleClose}>
+          <Alert onClose={handleClose} severity="error">
+            {errorMessage}
+          </Alert>
+        </Snackbar>
+      )}
       <header className={styles.header}>
         <h1 className={styles.logo}>FILMS</h1>
         <div className={styles.searchContainer}>

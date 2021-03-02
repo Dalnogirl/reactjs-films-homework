@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Navbar Renders Navbar component 1`] = `
+<div>
+  <div
+    class="navbar"
+  >
+    <div
+      class="navLink"
+      data-testid="nav-item"
+    >
+      Top rated
+    </div>
+    <div
+      class="navLink"
+      data-testid="nav-item"
+    >
+      Popular
+    </div>
+    <div
+      class="navLink"
+      data-testid="nav-item"
+    >
+      Upcoming
+    </div>
+    <div
+      class="dd_wrapper"
+    >
+      <div
+        class="dd_header"
+        data-testid="ddHeader"
+      >
+        <div
+          class="dd_header_title"
+        >
+          Search By Genre ▼
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
